@@ -46,12 +46,12 @@ const Main = () => {
               <h1>ToDo List</h1>      
               <a className='login'><img src={login}></img></a>
             </div>
-            <Crud/>
             <div className='quotes'>
                 {loading ? (<div><h1>Loading Quotes...</h1></div>) : (<div className='quote'><h1>
-                    {quotes && (quotes.text)}</h1><p>{quotes && (quotes.author)}</p></div>
+                    {quotes && (quotes.text)}</h1><h2>{quotes && (quotes.author)}</h2></div>
                 )}
             </div>
+            <Crud/>
             <Footer/>
         </div>
       )

@@ -5,18 +5,18 @@ const Crud = () => {
 
   const [toDo, setTodo] = useState("");
   const [toDos, setToDos] = useState([]);
-  const [difficulty, setDifficulty] = useState("Difficult");
+  const [difficulty, setDifficulty] = useState("Hard");
 
   const getColor = (difficulty) => {
     
     switch(difficulty){
 
-      case 'Difficult':
-        return 'red';
+      case 'Hard':
+        return 'rgb(245, 29, 29)';
       case 'Moderate':
         return 'yellow';
       case 'Easy': 
-        return 'green';
+        return 'lightgreen';
       case 'Defult':
         alert("Please, select a color.");
         return;
@@ -44,7 +44,7 @@ const Crud = () => {
        <div className='crud'>
         <input type='text' value={toDo} placeholder='Enter your ToDo' onChange={(e) => setTodo(e.target.value)}/>
         <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-          <option value="Difficult">Difficult 🔴</option>
+          <option value="Hard">Hard 🔴</option>
           <option value="Moderate">Moderate 🟡</option>
           <option value="Easy">Easy 🟢</option>
         </select>
