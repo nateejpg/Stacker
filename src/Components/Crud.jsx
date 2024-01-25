@@ -88,7 +88,7 @@ const Crud = () => {
             key={toDo.id}
             style={{ background: getColor(toDo.difficulty) }}
           >
-            {editingToDo ? (
+            {editingToDo === toDo.id ? (
               <div className="saveToDo">
                 <input
                   placeholder="edit your ToDo"

@@ -235,6 +235,7 @@ input::placeholder {
 
 .saveToDo {
   height: 80%;
+  gap: 15px;
 }
 
 .saveToDo input {
@@ -243,7 +244,7 @@ input::placeholder {
   border-right: none;
   border-bottom: 2px solid black;
   background-color: transparent;
-  width: 250px;
+  max-width: 150px;
   height: 30px;
   font-size: 30px;
   outline: none;
