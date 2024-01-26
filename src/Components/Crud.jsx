@@ -62,7 +62,7 @@ const Crud = () => {
   };
 
   return (
-    <div>
+    <div className="wrapper">
       <div className="crud">
         <input
           type="text"
