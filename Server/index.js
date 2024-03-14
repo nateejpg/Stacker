@@ -93,3 +93,53 @@ app.put("/default/:id", (req, res) => {
     })
 })
 
+// General Tasks
+
+app.get("/Stacks", (req, res) => {
+
+    const sql = "SELECT * FROM tasks";
+
+    db.query(sql, (err, data) => {
+
+        if(err){
+            res.json(err);
+        }else{
+            res.json(data);
+        }
+    })
+
+})
+
+app.post("/Stacks", (req,res) => {
+
+    const sql = "INSERT INTO tasks (`content`, `difficulty`) VALUES (?)";
+
+    const values = [
+        req.body.content,
+        req.body.difficulty,
+    ]
+
+    db.query(sql,[values], (err, data) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.json(data);
+        }
+    })
+})
+
+
+app.delete("/Stacks/:id", (req, res) => {
+
+    const userID = req.params.id;
+
+    const sql = "DELETE from tasks WHERE id = ?";
+
+    db.query(sql, [userID], (err,data) => {
+        if(err){
+            return res.json(err);
+        }else{
+            return res.json("Stack has been successfully deleted!");
+        }
+    })
+})

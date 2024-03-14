@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footerWrapper">
-        <a href="https://snapshot42.netlify.app/">
+        <a href="https://snapshot-1gk.pages.dev/">
           <img src={paper} />
         </a>
         <a href="https://github.com/nateejpg">

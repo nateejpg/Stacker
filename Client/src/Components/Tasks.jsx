@@ -3,15 +3,20 @@ import { useState, useEffect } from "react";
 import done from "../images/done.png";
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
+import axios from "axios";
 
 const Crud = () => {
-  const [toDo, setTodo] = useState("");
   const [toDos, setToDos] = useState([]);
-  const [difficulty, setDifficulty] = useState("Hard");
   const [editingToDo, setEditingToDo] = useState(null);
   const [editedText, setEditedText] = useState("");
   const [defaultA, setDefaultA] = useState([]);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
+  const [content, setContent] = useState("");
+  const [stack, setStack] = useState({
+    content: "",
+    difficulty: "Hard",
+  })
+  
 
   const getColor = (difficulty) => {
     switch (difficulty) {
@@ -21,15 +26,16 @@ const Crud = () => {
         return "yellow";
       case "Easy":
         return "lightgreen";
-      case "Defult":
-        alert("Please, select a color.");
-        return;
+      case "Default":
+        return "red";
     }
   };
 
   useEffect(() => {
 
     const fetchDefault = async () => {
+
+      if(!user){
 
         try{
             const response = await fetch("http://localhost:8800/default");
@@ -40,24 +46,42 @@ const Crud = () => {
         }catch(err){
             console.log(err);
         }
+    }else{
+
+      try{
+
+        const response = await fetch("http://localhost:8800/Stacks");
+        const data = await response.json();
+
+        setToDos(data);
+        
+      }catch(err){
+        console.log(err);
+      }
     }
+  }
 
     fetchDefault();
 
-    console.log(defaultA);
-
+    console.log(toDos)
   },[])
 
   // Crud
 
-  const addToDo = () => {
-    if (toDo.trim() != "") {
-      setToDos([...toDos, { id: Date.now(), text: toDo, difficulty }]);
-      setTodo("");
-    }
+  const addToDo = async () => {
 
     setUser(true)
-    console.log("Array", toDos);
+
+    try{
+
+      await axios.post("http://localhost:8800/Stacks", stack);
+
+    }catch(err){
+      console.log(err);
+    }
+
+    // Add the feature that reloading wont be necessary!
+    window.location.reload();
   };
 
   const removeTodo = (todoID) => {
@@ -85,33 +109,60 @@ const Crud = () => {
     setEditedText("");
   };
 
+  //  Fix the content and difficulty not showing up
+  const handleChange = (e) => {
+
+    setStack((prev) => ({...prev,[e.target.name]: e.target.value}));
+
+
+  }
+
+  const handleDelete = async (id) => {
+
+    try{
+
+      await axios.delete(`http://localhost:8800/Stacks/${id}`);
+
+      const updatedItems = toDos.filter(stack => stack.id !== id);
+
+      setToDos(updatedItems);
+
+    }catch(err){
+      console.log(err)
+    }
+
+  }
+
+  console.log(toDos);
+
+
   return (
     <div className="wrapper">
       <div className="crud">
         <input
-          type="text"
-          value={toDo}
-          placeholder="Enter your ToDo"
-          onChange={(e) => setTodo(e.target.value)}
+          type= "text"
+          name = "content"
+          placeholder="Enter your Stack!"
+          onChange={handleChange}
           maxLength={90}
         />
         <select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value)}
+          name="difficulty"
+          onChange={handleChange}
         >
-          <option value="Hard">Hard 🔴</option>
-          <option value="Moderate">Moderate 🟡</option>
-          <option value="Easy">Easy 🟢</option>
+          <option value="Hard">Urgent 🔴</option>
+          <option value="Moderate"> Queued 🟡</option>
+          <option value="Easy">  Paced 🟢</option>
         </select>
-        <button onClick={addToDo}>Add ToDo</button>
+        <button onClick={addToDo}>Add Stack</button>
       </div>
         <div className="toDoWrapper">
-        {!user ? (defaultA.map((task) => (
+        {!user || toDos.length === 0 ? (defaultA.map((task) => (
             <div className="toDoColor" key={task.id} style={{background: getColor(task.difficulty)}}>
               <div className="toDoBtnEdit"><button><img src={edit}/></button></div>
                 <div className="toDoText"><h1>{task.content}</h1></div>
                <div className="toDoBtn">
-                <button onClick={() => removeTodo(toDo.id)}>
+                <button onClick={() => removeTodo(content.id)}>
                   <img src={trash}></img>
                 </button>
                 <button>
@@ -145,14 +196,14 @@ const Crud = () => {
                 </div>
               ) : (
                 <div className="toDoText">
-                  <h1>{toDo.text}</h1>
+                  <h1>{toDo.content}</h1>
                 </div>
               )}
               <div className="toDoBtn">
-                <button onClick={() => removeTodo(toDo.id)}>
+                <button onClick={() => handleDelete(toDo.id)}>
                   <img src={trash}></img>
                 </button>
-                <button onClick={() => editToDo(toDo.id, toDo.text)}>
+                <button onClick={""}>
                   <img src={done}></img>
                 </button>
               </div>
