@@ -143,3 +143,24 @@ app.delete("/Stacks/:id", (req, res) => {
         }
     })
 })
+
+app.put("/Stacks/:id", (req, res) => {
+
+    const userId = req.params.id;
+    const sql = "UPDATE tasks SET `content` = ?, `difficulty` = ? WHERE id = ?";
+
+    const values = [
+        req.body.content,
+        req.body.difficulty,
+    ]
+
+    db.query(sql, [...values, userId ], (err, data) => {
+
+        if(err){
+            console.log(err);
+        }else{
+            res.json(data);
+        }
+
+    })
+})
