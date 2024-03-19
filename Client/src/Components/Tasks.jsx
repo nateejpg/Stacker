@@ -10,7 +10,7 @@ const Crud = () => {
   const [toDos, setToDos] = useState([]);
   const [editingToDo, setEditingToDo] = useState(null);
   const [defaultA, setDefaultA] = useState([]);
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const [stack, setStack] = useState({
     content: "",
     difficulty: "Hard",
@@ -19,7 +19,7 @@ const Crud = () => {
   const [updatedStack, setUpdatedStack] = useState({
 
     content: "",
-    difficulty: "",
+    difficulty: "Hard",
   })
   
   const getColor = (difficulty) => {
@@ -43,7 +43,6 @@ const Crud = () => {
 
     const fetchDefault = async () => {
 
-      if(!user){
 
         try{
             const response = await fetch("http://localhost:8800/default");
@@ -54,29 +53,30 @@ const Crud = () => {
         }catch(err){
             console.log(err);
         }
-    }else{
+    }
+
+    const fetchStacks = async () => {
 
       try{
 
-        const response = await fetch("http://localhost:8800/Stacks");
+        const response = await fetch("http://localhost:8800/stacks");
         const data = await response.json();
 
         setToDos(data);
-        
+
       }catch(err){
-        console.log(err);
+        console.log(err)
       }
     }
-  }
+
 
     fetchDefault();
+    fetchStacks();
 
     console.log(toDos)
   },[])
 
   const addToDo = async () => {
-
-    setUser(true)
 
     try{
 
@@ -86,8 +86,9 @@ const Crud = () => {
       console.log(err);
     }
 
-    // Add the feature that reloads won't be necessary!
+  
     window.location.reload();
+
   };
 
   const editToDo = (todoID) => {
@@ -107,6 +108,7 @@ const Crud = () => {
   const handleChangeUpdate = (e) => {
 
     setUpdatedStack((prev) => ({...prev, [e.target.name]: e.target.value}));
+
   }
 
   const handleDelete = async (id) => {
@@ -133,14 +135,17 @@ const Crud = () => {
       
       setEditingToDo(null);
 
-      navigate("/");
-
       window.location.reload();
       
     }catch(err){
 
       console.log(err);
 
+    }
+
+    if(updatedStack.content === ""){
+      alert("Please, update your Stack!")
+      return;
     }
   }
 
@@ -165,26 +170,22 @@ const Crud = () => {
         <button onClick={addToDo}>Add Stack</button>
       </div>
         <div className="toDoWrapper">
-        {!user || toDos.length === 0 ? (defaultA.map((task) => (
+        {(toDos.length === 0) ? (defaultA.map((task) => (
             <div className="toDoColor" key={task.id} style={{background: getColor(task.difficulty)}}>
-              <div className="toDoBtnEdit"><button><img src={edit}/></button></div>
                 <div className="toDoText"><h1>{task.content}</h1></div>
                <div className="toDoBtn">
                 <button>
                   <img src={trash}></img>
                 </button>
-                <button>
-                  <img src={done}></img>
-                </button>
+                <div><button><img src={edit}/></button></div>
               </div>
         </div>
         ))) : (toDos.map((toDo) => (
             <div
               className="toDoColor"
               key={toDo.id}
-              style={{ background: getColor(toDo.difficulty) }}
+              style={{ background: getColor(toDo.difficulty)}}
             >
-            <div className="toDoBtnEdit"><button onClick={() => editToDo(toDo.id)}><img src={edit}/></button></div>
               {editingToDo === toDo.id ? (
                 <div className="saveToDo">
                   <input
@@ -199,7 +200,7 @@ const Crud = () => {
                   <button value="Moderate"  name="difficulty" onClick={handleChangeUpdate}>🟡</button>
                   </div>
                   <button onClick={() => handleUpdate(toDo.id)}>
-                    <img src={edit}></img>
+                    <img src={done}></img>
                   </button>
                 </div>
               ) : (
@@ -211,9 +212,7 @@ const Crud = () => {
                 <button onClick={() => handleDelete(toDo.id)}>
                   <img src={trash}></img>
                 </button>
-                <button onClick={""}>
-                  <img src={done}></img>
-                </button>
+                <div><button onClick={() => editToDo(toDo.id)}><img src={edit}/></button></div>
               </div>
             </div>
           ))) }
