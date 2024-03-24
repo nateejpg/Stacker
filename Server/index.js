@@ -164,3 +164,46 @@ app.put("/Stacks/:id", (req, res) => {
 
     })
 })
+
+// Users
+
+app.get("/users", (req, res) => {
+
+    const sql = "SELECT * from users";
+
+    db.query(sql, (err, data) => {
+
+        if(err){
+            console.log(err);
+        }else{
+            res.json(data);
+        }
+    });
+})
+
+app.post("/users", async (req, res) => {
+
+    const {username, email, password} = req.body;
+
+    try{
+    const sql = "INSERT INTO users (`username`, `email`, `password`) VALUES (?)";
+
+    const values = [
+        req.body.username,
+        req.body.email,
+        req.body.password,
+    ]
+
+    db.query(sql, [values], (err, data) => {
+
+        if(err){
+            console.log(err);
+        }else{
+            res.json("user has been created");
+        }
+    })
+
+ }catch(err){
+    console.log(err);
+ }
+})

@@ -1,10 +1,38 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+    password: "",
+  })
+
+  const handleChange = (e) => {
+
+    setUserInfo((prev) => ({...prev, [e.target.name]: e.target.value}))
+  }
+
+  const handleClick = async (e) => {
+
+    e.preventDefault();
+
+    try{
+
+      await axios.post("http://localhost:8800/users", userInfo);
+      alert(`Congratulations ${userInfo.username}, you've created an account!`);
+      navigate("/signIn")
+
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const navigate = useNavigate();
+
+  console.log(userInfo);
 
   return (
     <div className="sign">
@@ -15,23 +43,23 @@ const SignUp = () => {
         <form>
           <input
             type="text"
-            placeholder="Enter your Username"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your Username:"
+            name = "username"
+            onChange={handleChange}
           />
           <input
             type="email"
-            placeholder="Enter your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email:"
+            name = "email"
+            onChange={handleChange}
           />
           <input
             type="password"
-            placeholder="Enter your Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your Password:"
+            name="password"
+            onChange={handleChange}
           />
-          <input type="submit" value={"Sign-Up"} />
+          <input type="submit" onClick={handleClick}/>
         </form>
         <div className="links">
           <Link to={"/signIn"}>
