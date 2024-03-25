@@ -28,7 +28,7 @@ const SignUp = () => {
       navigate("/signIn")
 
     }else{
-      alert("There was an error with the credentials you entered! Please, try again!")
+      alert("There was an error with the credentials you entered! please, try again!")
     }
   }catch(err){
     return console.log(err);

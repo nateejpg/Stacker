@@ -6,7 +6,7 @@ import Tasks from "../Components/Tasks"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Main = () => {
+const Main = ({id}) => {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +61,7 @@ const Main = () => {
           </div>
         )}
       </div>
-      <Tasks />
+      <Tasks id={id} />
       <Footer />
     </div>
   );

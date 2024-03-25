@@ -6,14 +6,14 @@ import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
 import axios from "axios";
 
-const Crud = () => {
+const Tasks = ({id}) => {
   const [toDos, setToDos] = useState([]);
   const [editingToDo, setEditingToDo] = useState(null);
   const [defaultA, setDefaultA] = useState([]);
-  const [user, setUser] = useState(false);
   const [stack, setStack] = useState({
     content: "",
     difficulty: "Hard",
+    userId: id,
   })
 
   const [updatedStack, setUpdatedStack] = useState({
@@ -221,4 +221,4 @@ const Crud = () => {
   );
 };
 
-export default Crud;
+export default Tasks;

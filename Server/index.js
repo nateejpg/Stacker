@@ -114,11 +114,12 @@ app.get("/Stacks", (req, res) => {
 
 app.post("/Stacks", (req,res) => {
 
-    const sql = "INSERT INTO tasks (`content`, `difficulty`) VALUES (?)";
+    const sql = "INSERT INTO tasks (`content`, `difficulty`, `userId`) VALUES (?)";
 
     const values = [
         req.body.content,
         req.body.difficulty,
+        req.body.userId
     ]
 
     db.query(sql,[values], (err, data) => {
@@ -169,6 +170,14 @@ app.put("/Stacks/:id", (req, res) => {
 
 // Users
 
+const JWT_SECRET = "key";
+
+const generateToken = (userId) => {
+
+    return jwt.sign({userId}, JWT_SECRET, {expiresIn: "1h"});
+
+}
+
 app.get("/users", (req, res) => {
 
     const sql = "SELECT * from users";
@@ -212,17 +221,9 @@ app.post("/users", async (req, res) => {
  }
 })
 
-const JWT_SECRET = "key";
-
-const generateToken = (userId) => {
-
-    return jwt.sign({userId}, JWT_SECRET, {expiresIn: "1h"});
-
-}
-
 app.post("/login", async (req, res) => {
 
-    const {email, password} = req.body;
+    const {email, password, username} = req.body;
 
     const sql = "SELECT * FROM users WHERE `email` = ?"
 

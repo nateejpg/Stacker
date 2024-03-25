@@ -330,16 +330,17 @@ input::placeholder {
 }
 
 .sign .formContainer {
-  background-color: yellow;
+  background-color: red;
+  opacity: 0.91;
   width: 45%;
-  height: 90%;
+  height: 96%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   align-items: center;
   border-radius: 30px;
-  box-shadow: 10px 8px 10px 10px rgb(103, 106, 6);
+  box-shadow: 8px 8px 22px 10px rgb(14, 2, 2);
 }
 
 .sign .formContainer form {
@@ -373,14 +374,18 @@ input::placeholder {
 }
 
 .sign form input[type="submit"]:hover {
-  background-color: rgb(37, 36, 36);
+  background-color: black;
   color: white;
+  width: 250px;
+  transition: 0.5s;
 }
 
 .sign .formContainer .links a {
-  font-size: 30px;
-  border-bottom: none;
+  font-size: 35px;
+  border: none;
+  color: black;
   outline: none;
+  
 }
 
 .sign .links {

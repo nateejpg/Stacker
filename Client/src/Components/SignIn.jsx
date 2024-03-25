@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 
-const SignIn = () => {
+const SignIn = ({onLogin}) => {
   
   const [userLogin, setUserLogin] = useState({
     email: '',
@@ -28,6 +28,18 @@ const SignIn = () => {
       const res = await axios.post("http://localhost:8800/login", userLogin);
       console.log("Login successful", res.data);
 
+      const username = res.data.user.username;
+
+      console.log(res.data);
+
+      onLogin({
+        id: res.data.user.id,
+      })
+
+      alert(`Hello ${username}, welcome abord!`)
+
+      navigate("/");
+
     }catch(err){
       if (err.response && err.response.data && err.response.data.error) {
         console.log('Login failed:', err.response.data.error);
@@ -38,7 +50,7 @@ const SignIn = () => {
 
   }
 
-  console.log(userLogin);
+  
 
   return (
     <div className="sign">
