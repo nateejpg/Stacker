@@ -1,6 +1,8 @@
 import express from "express"
 import cors from "cors";
 import mysql2 from "mysql2"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const app = express();
 app.use(express.json());
@@ -186,24 +188,81 @@ app.post("/users", async (req, res) => {
     const {username, email, password} = req.body;
 
     try{
-    const sql = "INSERT INTO users (`username`, `email`, `password`) VALUES (?)";
+   
+    const hashedPassword = await bcrypt.hash(password, 10);
+     const sql = "INSERT INTO users (`username`, `email`, `password`) VALUES (?)";
 
     const values = [
         req.body.username,
         req.body.email,
-        req.body.password,
+        hashedPassword,
     ]
 
     db.query(sql, [values], (err, data) => {
 
         if(err){
-            console.log(err);
+           return console.log(err);
         }else{
-            res.json("user has been created");
+           return res.json("user has been created");
         }
     })
 
  }catch(err){
-    console.log(err);
+    return console.log(err);
  }
+})
+
+const JWT_SECRET = "key";
+
+const generateToken = (userId) => {
+
+    return jwt.sign({userId}, JWT_SECRET, {expiresIn: "1h"});
+
+}
+
+app.post("/login", async (req, res) => {
+
+    const {email, password} = req.body;
+
+    const sql = "SELECT * FROM users WHERE `email` = ?"
+
+    db.query(sql, [email], async (err, data) => {
+
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+
+        if (data.length === 0) {
+            return res.status(401).json({ error: "Invalid email or password" });
+        }
+
+        try{
+            const isPasswordValid = await bcrypt.compare(password, data[0].password);
+
+            console.log(req.body)
+            console.log(password)
+            console.log("hashed pass", data[0].password)
+            console.log(email)
+            console.log(isPasswordValid)
+
+            if(!isPasswordValid){
+                return res.status(401).json({ error: "Invalid email or password aa" });
+            }
+
+            const token = generateToken(data[0].userId);
+            
+            const user = {
+                id: data[0].id,
+                username: data[0].username,
+                email: data[0].email,
+            }
+
+            return res.json({ message: "Login successful", token, user });
+
+
+        }catch(err){
+            return console.log(err);
+        }
+    })
 })

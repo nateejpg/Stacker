@@ -1,10 +1,44 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
+  const [userLogin, setUserLogin] = useState({
+    email: '',
+    password: '',
+  })
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+
+    setUserLogin((prev) => ({...prev, [e.target.name]: e.target.value}));
+
+  }
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    try{
+
+      const res = await axios.post("http://localhost:8800/login", userLogin);
+      console.log("Login successful", res.data);
+
+    }catch(err){
+      if (err.response && err.response.data && err.response.data.error) {
+        console.log('Login failed:', err.response.data.error);
+    } else {
+        console.log('An error occurred:', err.message);
+    }
+    }
+
+  }
+
+  console.log(userLogin);
 
   return (
     <div className="sign">
@@ -15,17 +49,17 @@ const SignIn = () => {
         <form>
           <input
             type="email"
-            placeholder="Enter your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email:"
+            name = "email"
+            onChange={handleChange}
           />
           <input
             type="password"
-            placeholder="Enter your Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your Password:"
+            name = "password"
+            onChange={handleChange}
           />
-          <input type="submit" value={"Sign-In"} />
+          <input type="submit" onClick={handleSubmit}/>
         </form>
         <div className="links">
           <Link to={"/signUp"}>

@@ -176,7 +176,7 @@ input::placeholder {
   font-weight: 600;
   padding: 20px;
   box-shadow: 10px 8px 10px 5px rgb(198, 198, 198);
-  opacity: 0.91;
+  opacity: 0.95;
 }
 
 .toDoColor .toDoBtnEdit button img {

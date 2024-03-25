@@ -21,13 +21,18 @@ const SignUp = () => {
 
     try{
 
+      if(userInfo.email && userInfo.username && userInfo.password !== ""){
+
       await axios.post("http://localhost:8800/users", userInfo);
       alert(`Congratulations ${userInfo.username}, you've created an account!`);
       navigate("/signIn")
 
-    }catch(err){
-      console.log(err)
+    }else{
+      alert("There was an error with the credentials you entered! Please, try again!")
     }
+  }catch(err){
+    return console.log(err);
+  }
   }
 
   const navigate = useNavigate();
