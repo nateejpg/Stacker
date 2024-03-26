@@ -50,8 +50,6 @@ const SignIn = ({onLogin}) => {
 
   }
 
-  
-
   return (
     <div className="sign">
       <div className="formContainer">
@@ -74,9 +72,7 @@ const SignIn = ({onLogin}) => {
           <input type="submit" onClick={handleSubmit}/>
         </form>
         <div className="links">
-          <Link to={"/signUp"}>
-            <a>Dont have an account?</a>
-          </Link>
+          <Link to={"/SignUp"}><p>Don't you have an account?</p></Link>
         </div>
       </div>
     </div>

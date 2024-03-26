@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import done from "../images/done.png";
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
@@ -16,9 +16,11 @@ const Tasks = ({id}) => {
     userId: id,
   })
 
+  console.log(id);
+
   const [updatedStack, setUpdatedStack] = useState({
 
-    content: "",
+    content: "Don't leave me empty ;)",
     difficulty: "Hard",
   })
   
@@ -35,46 +37,43 @@ const Tasks = ({id}) => {
     }
   };
 
-  console.log(updatedStack)
 
-  const navigate = useNavigate();
+ useEffect(() => {
 
-  useEffect(() => {
+  const fetchDefault = async () => {
 
-    const fetchDefault = async () => {
+     try{
+          const response = await fetch("http://localhost:8800/default");
+          const data = await response.json();
 
-
-        try{
-            const response = await fetch("http://localhost:8800/default");
-            const data = await response.json();
-
-            setDefaultA(data);
-
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    const fetchStacks = async () => {
-
-      try{
-
-        const response = await fetch("http://localhost:8800/stacks");
-        const data = await response.json();
-
-        setToDos(data);
+          setDefaultA(data);
 
       }catch(err){
-        console.log(err)
-      }
-    }
+           console.log(err);
+       }
+   }
+
+  const fetchStacks = async () => {
+
+    try{
+
+       const response = await fetch("http://localhost:8800/stacks");
+      const data = await response.json();
+
+      setToDos(data);
+
+    }catch(err){
+       console.log(err)
+     }
+  }
 
 
-    fetchDefault();
-    fetchStacks();
+  fetchDefault();
+  fetchStacks();
 
-    console.log(toDos)
-  },[])
+  console.log(toDos)
+ },[id])
+
 
   const addToDo = async () => {
 
@@ -142,11 +141,6 @@ const Tasks = ({id}) => {
       console.log(err);
 
     }
-
-    if(updatedStack.content === ""){
-      alert("Please, update your Stack!")
-      return;
-    }
   }
 
   return (
@@ -189,7 +183,7 @@ const Tasks = ({id}) => {
               {editingToDo === toDo.id ? (
                 <div className="saveToDo">
                   <input
-                    placeholder="edit your ToDo"
+                    placeholder="Edit your ToDo"
                     type="text"
                     name="content"
                     onChange={handleChangeUpdate}

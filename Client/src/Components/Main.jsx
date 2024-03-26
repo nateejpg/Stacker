@@ -3,32 +3,38 @@ import Footer from "./Footer";
 import todo1 from "../images/todo1.png";
 import login from "../images/login.png";
 import Tasks from "../Components/Tasks"
+import logout from "../images/logout.png"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Main = ({id}) => {
+const Main = ({id, onLogin}) => {
+
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchQuotes = async () => {
-      try {
-        const response = await fetch("https://quotesapi-c04u.onrender.com/");
-        const data = await response.json();
 
-        const randomQuotes = Math.floor(Math.random() * data.length);
-        const randomQuote = data[randomQuotes];
+ const fetchQuotes = async () => {
 
-        setQuotes(randomQuote);
-      } catch (error) {
-        console.log("Error ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+     const response = await fetch("https://quotesapi-c04u.onrender.com/");
+     const data = await response.json();
 
-    fetchQuotes();
-  }, []);
+       const randomQuotes = Math.floor(Math.random() * data.length);
+       const randomQuote = data[randomQuotes];
+
+     setQuotes(randomQuote);
+    } catch (error) {
+      console.log("Error ", error);
+    } finally {
+       setLoading(false);
+    }
+   };
+
+  fetchQuotes();
+  
+ }, []);
+
 
   const reload = () => {
 
@@ -43,11 +49,12 @@ const Main = ({id}) => {
           <img src={todo1}></img>
         </a>
         <h1>Stacker</h1>
+        { id ? (<a className="login"><button onClick={onLogin}><img src={logout}></img></button></a>) : (
         <a className="login">
           <Link to={"/SignIn"}>
             <img src={login}></img>
           </Link>
-        </a>
+        </a>)}
       </div>
       <div className="quotes">
         {loading ? (

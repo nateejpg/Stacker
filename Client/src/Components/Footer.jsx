@@ -4,6 +4,7 @@ import github from "../images/giticon.png";
 import paper from "../images/paper.png";
 
 const Footer = () => {
+
   return (
     <div className="footer">
       <div className="footerWrapper">

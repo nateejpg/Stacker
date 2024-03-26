@@ -2,12 +2,10 @@ import Main from "./Components/Main";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
-import Tasks from "./Components/Tasks";
 import { useEffect, useState } from "react";
 
 function App() {
 
-  const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
 
   const handleLogin = (userData) => {
@@ -20,16 +18,24 @@ function App() {
   
   const setUpdateId = (id) => {
 
-    window.localStorage.setItem("idTest", id);
+    window.localStorage.setItem("idKey", id);
   }
+
+  const handleLogOut = () => {
+
+    window.localStorage.removeItem("idKey");
+
+    setUserId("");
+
+ }
 
   useEffect(() => {
 
-    const idGet = window.localStorage.getItem("idTest");
+    const idGet = window.localStorage.getItem("idKey");
 
-    console.log("Hello Hello",idGet);
 
     setUserId(idGet);
+
 
   },[])
 
@@ -37,11 +43,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route index element={<Main/>}/>
-          <Route path={"/Tasks"} element = {<Tasks id={userId}/>} />
-          <Route path={"/SignIn"} element={<SignIn onLogin = {handleLogin}/>}/>
-          <Route path={"/SignUp"} element = {<SignUp/>}/>
-          <Route path={"/Main"} element={<Main/>}/>
+          <Route index element={<Main id={userId} onLogin = {handleLogOut} />}/>
+          <Route path={"/SignIn"} element = {<SignIn onLogin = {handleLogin}/>}/>
+          <Route path={"/SignUp"} element = {<SignUp id={userId}/>}/>
+          <Route path={"/Main"} element = {<Main/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -67,8 +67,8 @@ const SignUp = () => {
           <input type="submit" onClick={handleClick}/>
         </form>
         <div className="links">
-          <Link to={"/signIn"}>
-            <a>Already have an account?</a>
+          <Link to={"/signIn"} style={{border: "none"}}>
+            <p>Already have an account?</p>
           </Link>
         </div>
       </div>

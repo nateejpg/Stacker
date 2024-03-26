@@ -49,8 +49,8 @@ body {
 }
 
 .header .login img {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   background-color: transparent;
   cursor: pointer;
 }
@@ -59,6 +59,12 @@ body {
   width: 75px;
   height: 75px;
   transition: 0.5s;
+}
+
+.header .login button{
+  outline: none;
+  background-color: white;
+  border: none;
 }
 
 .wrapper {
@@ -380,12 +386,11 @@ input::placeholder {
   transition: 0.5s;
 }
 
-.sign .formContainer .links a {
-  font-size: 35px;
-  border: none;
+.sign .formContainer .links a p {
+  font-size: 40px;
   color: black;
+  border: none;
   outline: none;
-  
 }
 
 .sign .links {
@@ -394,4 +399,5 @@ input::placeholder {
   gap: 30px;
   align-items: top;
   justify-content: center;
+  border: none;
 }
