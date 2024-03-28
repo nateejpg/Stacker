@@ -23,6 +23,46 @@ body {
   background-color: white;
 }
 
+.head01{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.header .head01 h1{
+  font-size: 35px;
+  font-weight: 100;
+}
+
+.header .head01 h1 span{
+  font-weight: bold;
+}
+
+.header .head01 h1:hover{
+  cursor: pointer;
+}
+
+.head02{
+  width: 100%;
+  height: 100%;
+}
+
+.header .head02 h1 {
+  height: 100%;
+  font-size: 80px;
+}
+
+.head03{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+}
+
 .header .logo {
   width: 100px;
 }
@@ -37,11 +77,6 @@ body {
   width: 75px;
   height: 75px;
   transition: 0.7s;
-}
-
-.header h1 {
-  height: 100%;
-  font-size: 80px;
 }
 
 .header .login {

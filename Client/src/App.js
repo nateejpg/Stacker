@@ -8,10 +8,12 @@ import AddStack from "./Components/AddStack";
 function App() {
 
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleLogin = (userData) => {
 
     setUpdateId(userData.id);
+    setUpdateUsername(userData.username);
     
     console.log(userId);
 
@@ -20,22 +22,32 @@ function App() {
   const setUpdateId = (id) => {
 
     window.localStorage.setItem("idKey", id);
+
+  }
+
+  const setUpdateUsername = (username) => {
+
+    window.localStorage.setItem("username", username)
   }
 
   const handleLogOut = () => {
 
     window.localStorage.removeItem("idKey");
+    window.localStorage.removeItem("username");
     window.location.reload();
     setUserId("");
+    setUpdateUsername("");
 
  }
 
   useEffect(() => {
 
     const idGet = window.localStorage.getItem("idKey");
+    const userGet = window.localStorage.getItem("userKey");
 
 
     setUserId(idGet);
+    setUsername(userGet);
 
 
   },[])

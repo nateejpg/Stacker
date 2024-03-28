@@ -34,6 +34,7 @@ const SignIn = ({onLogin}) => {
 
       onLogin({
         id: res.data.user.id,
+        username: res.data.user.username,
       })
 
       alert(`Hello ${username}, welcome abord!`)

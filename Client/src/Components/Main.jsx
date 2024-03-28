@@ -12,6 +12,10 @@ const Main = ({id,onLogin}) => {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getUser = window.localStorage.getItem("username")
+
+  console.log(getUser)
+
   useEffect(() => {
 
     const fetchQuotes = async () => {
@@ -45,16 +49,20 @@ const Main = ({id,onLogin}) => {
   return (
     <div className="wrapper">
       <div className="header">
-        <a className="logo" onClick={reload}>
+       <div className="head01">
+        {id ? <h1>Hello <span>{getUser}</span>!</h1> : <a className="logo" onClick={reload}>
           <img src={todo1}></img>
-        </a>
-        <h1>Stacker</h1>
+        </a>}
+        </div>
+        <div className="head02"><h1>Stacker</h1></div>
+       <div className="head03"> 
         { id ? (<a className="login"><button onClick={onLogin}><img src={logout}></img></button></a>) : (
         <a className="login">
           <Link to={"/SignIn"}>
             <img src={login}></img>
           </Link>
         </a>)}
+        </div>
       </div>
       <div className="quotes">
         {loading ? (
