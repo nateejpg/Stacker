@@ -7,14 +7,14 @@ import logout from "../images/logout.png"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Main = ({id, onLogin}) => {
+const Main = ({id,onLogin}) => {
 
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
- const fetchQuotes = async () => {
+    const fetchQuotes = async () => {
 
     try {
      const response = await fetch("https://quotesapi-c04u.onrender.com/");
@@ -68,7 +68,7 @@ const Main = ({id, onLogin}) => {
           </div>
         )}
       </div>
-      <Tasks id={id} />
+      <Tasks/>
       <Footer />
     </div>
   );

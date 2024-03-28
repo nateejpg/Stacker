@@ -40,6 +40,8 @@ const SignIn = ({onLogin}) => {
 
       navigate("/");
 
+      window.location.reload();
+
     }catch(err){
       if (err.response && err.response.data && err.response.data.error) {
         console.log('Login failed:', err.response.data.error);

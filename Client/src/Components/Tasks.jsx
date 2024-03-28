@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {useNavigate } from "react-router-dom";
+import AddStack from "./AddStack";
 import done from "../images/done.png";
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
@@ -10,14 +10,6 @@ const Tasks = ({id}) => {
   const [toDos, setToDos] = useState([]);
   const [editingToDo, setEditingToDo] = useState(null);
   const [defaultA, setDefaultA] = useState([]);
-  const [stack, setStack] = useState({
-    content: "",
-    difficulty: "Hard",
-    userId: id,
-  })
-
-  console.log(id);
-
   const [updatedStack, setUpdatedStack] = useState({
 
     content: "Don't leave me empty ;)",
@@ -71,24 +63,8 @@ const Tasks = ({id}) => {
   fetchDefault();
   fetchStacks();
 
-  console.log(toDos)
  },[id])
 
-
-  const addToDo = async () => {
-
-    try{
-
-      await axios.post("http://localhost:8800/Stacks", stack);
-
-    }catch(err){
-      console.log(err);
-    }
-
-  
-    window.location.reload();
-
-  };
 
   const editToDo = (todoID) => {
 
@@ -96,13 +72,6 @@ const Tasks = ({id}) => {
 
   };
 
-
-  const handleChange = (e) => {
-
-    setStack((prev) => ({...prev,[e.target.name]: e.target.value}));
-
-
-  }
 
   const handleChangeUpdate = (e) => {
 
@@ -145,24 +114,7 @@ const Tasks = ({id}) => {
 
   return (
     <div className="wrapper">
-      <div className="crud">
-        <input
-          type= "text"
-          name = "content"
-          placeholder="Enter your Stack!"
-          onChange={handleChange}
-          maxLength={90}
-        />
-        <select
-          name="difficulty"
-          onChange={handleChange}
-        >
-          <option value="Hard">Urgent 🔴</option>
-          <option value="Moderate"> Queued 🟡</option>
-          <option value="Easy">  Paced 🟢</option>
-        </select>
-        <button onClick={addToDo}>Add Stack</button>
-      </div>
+      <AddStack/>
         <div className="toDoWrapper">
         {(toDos.length === 0) ? (defaultA.map((task) => (
             <div className="toDoColor" key={task.id} style={{background: getColor(task.difficulty)}}>

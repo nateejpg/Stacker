@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import { useEffect, useState } from "react";
+import AddStack from "./Components/AddStack";
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
   const handleLogOut = () => {
 
     window.localStorage.removeItem("idKey");
-
+    window.location.reload();
     setUserId("");
 
  }
@@ -47,6 +48,7 @@ function App() {
           <Route path={"/SignIn"} element = {<SignIn onLogin = {handleLogin}/>}/>
           <Route path={"/SignUp"} element = {<SignUp id={userId}/>}/>
           <Route path={"/Main"} element = {<Main/>}/>
+          <Route path={"/AddStack"} element={<AddStack id={userId}/>}/>
         </Routes>
       </BrowserRouter>
     </div>
