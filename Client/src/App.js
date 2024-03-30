@@ -56,7 +56,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route index element={<Main id={userId} onLogin = {handleLogOut} />}/>
+          <Route index element={<Main id={userId} onLogOut = {handleLogOut} />}/>
           <Route path={"/SignIn"} element = {<SignIn onLogin = {handleLogin}/>}/>
           <Route path={"/SignUp"} element = {<SignUp id={userId}/>}/>
           <Route path={"/Main"} element = {<Main/>}/>

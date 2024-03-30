@@ -7,7 +7,7 @@ import logout from "../images/logout.png"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Main = ({id,onLogin}) => {
+const Main = ({id,onLogOut}) => {
 
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,7 +56,7 @@ const Main = ({id,onLogin}) => {
         </div>
         <div className="head02"><h1>Stacker</h1></div>
        <div className="head03"> 
-        { id ? (<a className="login"><button onClick={onLogin}><img src={logout}></img></button></a>) : (
+        { id ? (<a className="login"><button onClick={onLogOut}><img src={logout}></img></button></a>) : (
         <a className="login">
           <Link to={"/SignIn"}>
             <img src={login}></img>
@@ -76,7 +76,7 @@ const Main = ({id,onLogin}) => {
           </div>
         )}
       </div>
-      <Tasks/>
+      <Tasks onLogOut={onLogOut}/>
       <Footer />
     </div>
   );

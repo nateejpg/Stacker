@@ -97,7 +97,7 @@ app.put("/default/:id", (req, res) => {
 
 // General Tasks
 
-app.get("/Stacks", (req, res) => {
+app.get("/stacks", (req, res) => {
 
     const sql = "SELECT * FROM tasks";
 
@@ -112,7 +112,27 @@ app.get("/Stacks", (req, res) => {
 
 })
 
-app.post("/Stacks", (req,res) => {
+// Get stacks from only one user!
+
+app.get("/userStack",(req, res) => {
+
+
+    const userId = req.query.userId;
+    const sql = "SELECT * FROM tasks WHERE userId = ?";
+
+    db.query(sql, [userId], (err,data) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ error: "Failed to retrieve Tasks" });
+          } else {
+            console.log("Task from the user have been retrieved!", userId);
+            res.status(200).json(data);
+          }
+    })
+       
+})
+
+app.post("/stacks", (req,res) => {
 
     const sql = "INSERT INTO tasks (`content`, `difficulty`, `userId`) VALUES (?)";
 
@@ -191,6 +211,7 @@ app.get("/users", (req, res) => {
         }
     });
 })
+
 
 app.post("/users", async (req, res) => {
 

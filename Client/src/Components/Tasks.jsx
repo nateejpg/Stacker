@@ -5,16 +5,18 @@ import done from "../images/done.png";
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
-const Tasks = ({id}) => {
+const Tasks = () => {
   const [toDos, setToDos] = useState([]);
   const [editingToDo, setEditingToDo] = useState(null);
   const [defaultA, setDefaultA] = useState([]);
+  const [UpdateFlag, setUpdateFlag] = useState("")
+  const [testText, setTestText] = useState("");
   const [updatedStack, setUpdatedStack] = useState({
-
-    content: "Don't leave me empty ;)",
+    content: testText === "" ? "Don't leave me empty ;)" : testText,
     difficulty: "Hard",
-  })
+  });
   
   const getColor = (difficulty) => {
     switch (difficulty) {
@@ -30,7 +32,14 @@ const Tasks = ({id}) => {
   };
 
 
+
  useEffect(() => {
+  
+  const getter = window.localStorage.getItem("idKey");
+  setUpdateFlag(getter)
+
+
+  console.log("getter is working here", getter);
 
   const fetchDefault = async () => {
 
@@ -47,23 +56,24 @@ const Tasks = ({id}) => {
 
   const fetchStacks = async () => {
 
-    try{
+   try{
 
-       const response = await fetch("http://localhost:8800/stacks");
-      const data = await response.json();
+       const response = await axios.get(`http://localhost:8800/userStack?userId=${getter}`);
 
-      setToDos(data);
+      setToDos(response.data);
 
-    }catch(err){
-       console.log(err)
+   }catch(err){
+      console.log(err)
      }
-  }
-
+ }
 
   fetchDefault();
   fetchStacks();
 
- },[id])
+ },[])
+
+ console.log("Here they are", toDos);
+ console.log(testText)
 
 
   const editToDo = (todoID) => {
@@ -73,6 +83,15 @@ const Tasks = ({id}) => {
   };
 
 
+  const handleAdd = (tempTasks) => {
+    const taskWithUniqueId = {
+      ...tempTasks,
+      id: uuidv4()
+    };
+    setToDos(prevToDos => [...prevToDos, taskWithUniqueId]);
+  };
+  
+
   const handleChangeUpdate = (e) => {
 
     setUpdatedStack((prev) => ({...prev, [e.target.name]: e.target.value}));
@@ -81,40 +100,48 @@ const Tasks = ({id}) => {
 
   const handleDelete = async (id) => {
 
-    try{
+      try{
 
-      await axios.delete(`http://localhost:8800/Stacks/${id}`);
-
-      const updatedItems = toDos.filter(stack => stack.id !== id);
-
-      setToDos(updatedItems);
-
-    }catch(err){
-      console.log(err)
-    }
-
+        await axios.delete(`http://localhost:8800/Stacks/${id}`);
+  
+        const updatedItems = toDos.filter(stack => stack.id !== id);
+  
+        setToDos(updatedItems);
+  
+      }catch(err){
+        console.log(err)
+      }
   }
+
 
   const handleUpdate = async (id) => {
 
-    try{
+    if(!UpdateFlag){
 
-      await axios.put(`http://localhost:8800/Stacks/${id}`, updatedStack);
-      
       setEditingToDo(null);
 
-      window.location.reload();
-      
-    }catch(err){
+    }else{
 
-      console.log(err);
+      try{
+
+        await axios.put(`http://localhost:8800/Stacks/${id}`, updatedStack);
+        
+        setEditingToDo(null);
+  
+        window.location.reload();
+        
+      }catch(err){
+  
+        console.log(err);
+  
+      }
 
     }
   }
 
   return (
     <div className="wrapper">
-      <AddStack/>
+      <AddStack onClick={handleAdd}/>
         <div className="toDoWrapper">
         {(toDos.length === 0) ? (defaultA.map((task) => (
             <div className="toDoColor" key={task.id} style={{background: getColor(task.difficulty)}}>
@@ -138,12 +165,13 @@ const Tasks = ({id}) => {
                     placeholder="Edit your ToDo"
                     type="text"
                     name="content"
-                    onChange={handleChangeUpdate}
+                    value={testText}
+                    onChange={(e) => setTestText(e.target.value)}
                   />
                   <div className="saveToDoBtns">
-                  <button value ="Hard" name="difficulty" onClick={handleChangeUpdate}>🔴</button>
+                  <button value ="Hard" name="difficulty" onClick={handleChangeUpdate} >🔴</button>
                   <button value="Easy" name="difficulty" onClick={handleChangeUpdate}>🟢</button>
-                  <button value="Moderate"  name="difficulty" onClick={handleChangeUpdate}>🟡</button>
+                  <button value="Moderate" name="difficulty" onClick={handleChangeUpdate}>🟡</button>
                   </div>
                   <button onClick={() => handleUpdate(toDo.id)}>
                     <img src={done}></img>
