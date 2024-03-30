@@ -12,9 +12,8 @@ const Tasks = () => {
   const [editingToDo, setEditingToDo] = useState(null);
   const [defaultA, setDefaultA] = useState([]);
   const [UpdateFlag, setUpdateFlag] = useState("")
-  const [testText, setTestText] = useState("");
   const [updatedStack, setUpdatedStack] = useState({
-    content: testText === "" ? "Don't leave me empty ;)" : testText,
+    content: "Don't leave me empty! ;)",
     difficulty: "Hard",
   });
   
@@ -39,8 +38,6 @@ const Tasks = () => {
   setUpdateFlag(getter)
 
 
-  console.log("getter is working here", getter);
-
   const fetchDefault = async () => {
 
      try{
@@ -58,7 +55,7 @@ const Tasks = () => {
 
    try{
 
-       const response = await axios.get(`http://localhost:8800/userStack?userId=${getter}`);
+      const response = await axios.get(`http://localhost:8800/userStack?userId=${getter}`);
 
       setToDos(response.data);
 
@@ -71,9 +68,6 @@ const Tasks = () => {
   fetchStacks();
 
  },[])
-
- console.log("Here they are", toDos);
- console.log(testText)
 
 
   const editToDo = (todoID) => {
@@ -116,10 +110,27 @@ const Tasks = () => {
 
   const handleUpdate = async (id) => {
 
-    if(!UpdateFlag){
+    if (!UpdateFlag) {
 
-      setEditingToDo(null);
+      const taskToUpdate = toDos.find((toDo) => toDo.id === id);
+  
 
+      if (taskToUpdate) {
+
+        
+        const updatedTask = {
+          ...taskToUpdate,
+
+          content:updatedStack.content,
+          difficulty:updatedStack.difficulty,
+        };
+  
+
+        setToDos((prevToDos) => prevToDos.map((toDo) => (toDo.id === id ? updatedTask : toDo)));
+  
+
+        setEditingToDo(null);
+      }
     }else{
 
       try{
@@ -165,8 +176,8 @@ const Tasks = () => {
                     placeholder="Edit your ToDo"
                     type="text"
                     name="content"
-                    value={testText}
-                    onChange={(e) => setTestText(e.target.value)}
+                    id="myPlaceholder"
+                    onChange={handleChangeUpdate}
                   />
                   <div className="saveToDoBtns">
                   <button value ="Hard" name="difficulty" onClick={handleChangeUpdate} >🔴</button>

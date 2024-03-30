@@ -436,3 +436,194 @@ input::placeholder {
   justify-content: center;
   border: none;
 }
+
+@media (max-width: 992px){
+
+
+  *{
+    max-width: 100%;
+  }
+
+  .header {
+    height: 100%;
+    padding: 10px 0px;
+}
+
+  .header .head02 h1 {
+    height: 100%;
+    font-size: 45px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+}
+
+.header .login img {
+  width: 30px;
+  height: 30px;
+}
+
+.quote h1 {
+  font-size: 17px;
+}
+
+.header .logo img {
+  width: 30px;
+  height: 30px;
+}
+
+.crud select {
+  height: 40px;
+  width: 90px;
+  font-size: 13px;
+}
+
+.crud input[type="text"] {
+  width: 180px;
+  height: 40px;
+}
+
+#myPlaceholder::placeholder{
+  font-size: 20px;
+}
+
+.crud button {
+  width: 75px;
+  font-size: 13px;
+  height: 40px;
+}
+
+
+.toDoColor .toDoText h1 {
+  font-size: 18px;
+}
+
+.footerWrapper img {
+  width: 50px;
+  height: 50px;
+}
+
+.toDoColor {
+  min-width: 130px;
+  max-width: 130px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.footer h1 {
+  font-size: 20px;
+}
+
+.toDoWrapper {
+
+  height: 100%;
+  padding: 15px 10px;
+  gap: 10px;
+
+}
+
+.toDoColor .toDoBtn button img {
+  width: 25px;
+  height: 25px;
+}
+
+.quote h2 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.quote {
+  padding: 0px 20px;
+}
+
+.quotes{
+  min-width: 100%;
+  padding: 10px 0px;
+}
+
+
+.saveToDo {
+  height: 60px;
+  gap: 20px;
+  padding: 40px 0px;
+}
+
+.saveToDo button img {
+  width: 35px;
+  height: 35px;
+}
+
+
+.saveToDo input {
+  width: 100%;
+  font-size: 20px;
+}
+
+.saveToDoBtns {
+  display: flex;
+  gap: 10px;
+}
+
+.saveToDoBtns button {
+  font-size: 20px;
+}
+
+.toDoColor .toDoBtn {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.toDoColor .toDoBtn button {
+  width: 50px;
+
+}
+
+.crud button:hover {
+  width: 75px;
+  height: 40px;
+  font-size: 13px;
+
+}
+
+.quoteLoading{
+  font-size: 13px;
+}
+
+.crud {
+
+  height: 80px;
+
+}
+
+.sign .formContainer .titleContainer h1 {
+  font-size: 60px;
+}
+
+.sign .formContainer {
+ 
+  width: 330px;
+  border-radius: 15px;
+}
+
+.sign .formContainer form {
+  gap: 65px;
+
+}
+
+.sign .formContainer .links a p {
+  font-size: 20px;
+}
+
+#mySecondPlaceholder::placeholder{
+  font-size: 20px;
+}
+
+.sign form input[type="submit"] {
+  font-size: 25px;
+}
+
+
+}

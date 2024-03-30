@@ -51,18 +51,21 @@ const SignUp = () => {
             placeholder="Enter your Username:"
             name = "username"
             onChange={handleChange}
+            id="mySecondPlaceholder"
           />
           <input
             type="email"
             placeholder="Enter your Email:"
             name = "email"
             onChange={handleChange}
+            id="mySecondPlaceholder"
           />
           <input
             type="password"
             placeholder="Enter your Password:"
             name="password"
             onChange={handleChange}
+            id="mySecondPlaceholder"
           />
           <input type="submit" onClick={handleClick}/>
         </form>

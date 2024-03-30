@@ -65,12 +65,14 @@ const SignIn = ({onLogin}) => {
             placeholder="Enter your Email:"
             name = "email"
             onChange={handleChange}
+            id="mySecondPlaceholder"
           />
           <input
             type="password"
             placeholder="Enter your Password:"
             name = "password"
             onChange={handleChange}
+            id="mySecondPlaceholder"
           />
           <input type="submit" onClick={handleSubmit}/>
         </form>

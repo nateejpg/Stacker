@@ -61,6 +61,7 @@ const AddStack = ({onClick}) => {
       placeholder="Enter your Stack!"
       onChange={handleChange}
       maxLength={90}
+      id="myPlaceholder"
     />
     <select
       name="difficulty"

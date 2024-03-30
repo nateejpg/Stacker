@@ -66,7 +66,7 @@ const Main = ({id,onLogOut}) => {
       </div>
       <div className="quotes">
         {loading ? (
-          <div>
+          <div className="quoteLoading">
             <h1>Loading Quotes...</h1>
           </div>
         ) : (
