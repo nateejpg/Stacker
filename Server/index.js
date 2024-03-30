@@ -21,7 +21,7 @@ const db = mysql2.createConnection({
     host: "localhost",
     database: "mytodolist",
     user: "root",
-    password: "nath26an"
+    password: "nath26an",
 })
 
 // Default Tasks
