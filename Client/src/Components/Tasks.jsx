@@ -41,7 +41,7 @@ const Tasks = () => {
   const fetchDefault = async () => {
 
      try{
-          const response = await fetch("http://localhost:8800/default");
+          const response = await fetch(`${process.env.VAR}/default`);
           const data = await response.json();
 
           setDefaultA(data);
