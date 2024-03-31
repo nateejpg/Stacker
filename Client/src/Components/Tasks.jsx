@@ -41,7 +41,7 @@ const Tasks = () => {
   const fetchDefault = async () => {
 
      try{
-          const response = await fetch("https://stacker-server.vercel.app");
+          const response = await fetch("https://stacker-server.vercel.app/default");
           const data = await response.json();
 
           setDefaultA(data);
