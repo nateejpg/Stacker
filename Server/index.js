@@ -7,11 +7,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs"
 import db from "./db.js";
 
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_DBNAME);
-console.log(process.env.DB_USERNAME);
-console.log(process.env.DB_PASSWORD);
-
 const app = express();
 app.use(express.json());
 app.use(cors());

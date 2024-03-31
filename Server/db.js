@@ -12,11 +12,6 @@ const db = mysql.createPool({
     queueLimit: 0,
 })
 
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_DBNAME);
-console.log(process.env.DB_USERNAME);
-console.log(process.env.DB_PASSWORD);
-
 
 db.getConnection((err, conn) => {
     if(err){
