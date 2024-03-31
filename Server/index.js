@@ -1,14 +1,20 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from "express"
 import cors from "cors";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs"
-import dotenv from 'dotenv';
-import db from "./db";
+import db from "./db.js";
+
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_DBNAME);
+console.log(process.env.DB_USERNAME);
+console.log(process.env.DB_PASSWORD);
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-dotenv.config();
 
 
 app.listen(8800, () => {
