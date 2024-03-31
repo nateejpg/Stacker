@@ -460,8 +460,8 @@ input::placeholder {
 }
 
 .header .login img {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 }
 
 .quote h1 {
@@ -625,5 +625,11 @@ input::placeholder {
   font-size: 25px;
 }
 
+.header .head01 h1 {
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 100;
+}
 
 }

@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors";
-import mysql2 from "mysql2"
+import mysql from "mysql"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs"
 
@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
     res.json("Welcome to the backend")
 })
 
-const db = mysql2.createConnection({
+const db = mysql.createConnection({
     host: "localhost",
-    database: "mytodolist",
+    database: "stacker",
     user: "root",
     password: "nath26an",
 })
