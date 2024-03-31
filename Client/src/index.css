@@ -599,17 +599,17 @@ input::placeholder {
 }
 
 .sign .formContainer .titleContainer h1 {
-  font-size: 60px;
+  font-size: 50px;
 }
 
 .sign .formContainer {
- 
-  width: 330px;
+  width: 320px;
+  height: 500px;
   border-radius: 15px;
 }
 
 .sign .formContainer form {
-  gap: 65px;
+  gap: 40px;
 
 }
 
@@ -622,7 +622,9 @@ input::placeholder {
 }
 
 .sign form input[type="submit"] {
-  font-size: 25px;
+  font-size: 20px;
+  width: 100px;
+  height: 40px;
 }
 
 .header .head01 h1 {
