@@ -34,7 +34,7 @@ const AddStack = ({onClick}) => {
         }else{
 
         try{
-          await axios.post("http://localhost:8800/Stacks", stack);
+          await axios.post("https://stacker-server.vercel.app/Stacks", stack);
         }catch(err){
           console.log(err);
         }

@@ -25,7 +25,7 @@ const SignIn = ({onLogin}) => {
 
     try{
 
-      const res = await axios.post("http://localhost:8800/login", userLogin);
+      const res = await axios.post("https://stacker-server.vercel.app/login", userLogin);
       console.log("Login successful", res.data);
 
       const username = res.data.user.username;

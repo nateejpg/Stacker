@@ -55,7 +55,7 @@ const Tasks = () => {
 
    try{
 
-      const response = await axios.get(`http://localhost:8800/userStack?userId=${getter}`);
+      const response = await axios.get(`https://stacker-server.vercel.app/userStack?userId=${getter}`);
 
       setToDos(response.data);
 
@@ -96,7 +96,7 @@ const Tasks = () => {
 
       try{
 
-        await axios.delete(`http://localhost:8800/Stacks/${id}`);
+        await axios.delete(`https://stacker-server.vercel.app/Stacks/${id}`);
   
         const updatedItems = toDos.filter(stack => stack.id !== id);
   
@@ -135,7 +135,7 @@ const Tasks = () => {
 
       try{
 
-        await axios.put(`http://localhost:8800/Stacks/${id}`, updatedStack);
+        await axios.put(`https://stacker-server.vercel.app/Stacks/${id}`, updatedStack);
         
         setEditingToDo(null);
   

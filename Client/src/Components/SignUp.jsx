@@ -23,7 +23,7 @@ const SignUp = () => {
 
       if(userInfo.email && userInfo.username && userInfo.password !== ""){
 
-      await axios.post("http://localhost:8800/users", userInfo);
+      await axios.post("https://stacker-server.vercel.app/users", userInfo);
       alert(`Congratulations ${userInfo.username}, you've created an account!`);
       navigate("/signIn")
 
