@@ -150,21 +150,70 @@ const Tasks = () => {
     }
   }
 
+
   return (
     <div className="wrapper">
       <AddStack onClick={handleAdd}/>
         <div className="toDoWrapper">
-        {(toDos.length === 0) ? (defaultA.map((task) => (
-            <div className="toDoColor" key={task.id} style={{background: getColor(task.difficulty)}}>
-                <div className="toDoText"><h1>{task.content}</h1></div>
-               <div className="toDoBtn">
-                <button>
-                  <img src={trash}></img>
-                </button>
-                <div><button><img src={edit}/></button></div>
-              </div>
+        {(toDos.length === 0) ? (
+          <div className="toDoWrapper">
+          <div className="toDoColor" style={{background: getColor("Hard")}}>
+            <div className="toDoText"><h1>Estudar para a prova de Cálculo!</h1></div>
+            <div className="toDoBtn">
+              <button>
+              <img src={trash}></img>
+             </button>
+        <div>
+          <button><img src={edit}/></button>
         </div>
-        ))) : (toDos.map((toDo) => (
+      </div>
+      </div>
+          <div className="toDoColor" style={{background: getColor("Moderate")}}>
+            <div className="toDoText"><h1>Apprenez à faire des macarons et invitez des amis.</h1></div>
+            <div className="toDoBtn">
+              <button>
+              <img src={trash}></img>
+             </button>
+        <div>
+          <button><img src={edit}/></button>
+        </div>
+      </div>
+      </div>
+          <div className="toDoColor" style={{background: getColor("Easy")}}>
+            <div className="toDoText"><h1>esen Sie den kleinen Prinzen und geben Sie online eine Rezension ab</h1></div>
+            <div className="toDoBtn">
+              <button>
+              <img src={trash}></img>
+             </button>
+        <div>
+          <button><img src={edit}/></button>
+        </div>
+      </div>
+      </div>
+          <div className="toDoColor" style={{background: getColor("Moderate")}}>
+            <div className="toDoText"><h1>友達と遊ぶためにギターの弾き方を学ぶ</h1></div>
+            <div className="toDoBtn">
+              <button>
+              <img src={trash}></img>
+             </button>
+        <div>
+          <button><img src={edit}/></button>
+        </div>
+      </div>
+      </div>
+          <div className="toDoColor" style={{background: getColor("Hard")}}>
+            <div className="toDoText"><h1>Study FullStack development and create an application</h1></div>
+            <div className="toDoBtn">
+              <button>
+              <img src={trash}></img>
+             </button>
+        <div>
+          <button><img src={edit}/></button>
+        </div>
+      </div>
+      </div>
+          </div>
+        ) : (toDos.map((toDo) => (
             <div
               className="toDoColor"
               key={toDo.id}
