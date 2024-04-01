@@ -46,6 +46,7 @@ const SignIn = ({onLogin}) => {
     }catch(err){
       if (err.response && err.response.data && err.response.data.error) {
         console.log('Login failed:', err.response.data.error);
+        alert("There was an error, try again!")
     } else {
         console.log('An error occurred:', err.message);
     }
