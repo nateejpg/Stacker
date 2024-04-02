@@ -637,4 +637,11 @@ input::placeholder {
 .sign .formContainer form input {
   font-size: 20px;
 }
+
+.toDoColor .toDoBtn button img:hover {
+  width: 30px;
+  height: 30px;
+  transition: 0.5s;
+}
+
 }
