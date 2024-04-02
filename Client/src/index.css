@@ -634,6 +634,7 @@ input::placeholder {
   font-weight: 100;
 }
 
-
-
+.sign .formContainer form input {
+  font-size: 20px;
+}
 }
