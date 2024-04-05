@@ -43,7 +43,7 @@ const SignUp = () => {
     <div className="sign">
       <div className="formContainer">
         <div className="titleContainer">
-          <h1>Sign-Up</h1>
+          <h1>Register</h1>
         </div>
         <form>
           <input

@@ -58,7 +58,7 @@ const SignIn = ({onLogin}) => {
     <div className="sign">
       <div className="formContainer">
         <div className="titleContainer">
-          <h1>Sign-In</h1>
+          <h1>Login</h1>
         </div>
         <form>
           <input
@@ -75,7 +75,7 @@ const SignIn = ({onLogin}) => {
             onChange={handleChange}
             id="mySecondPlaceholder"
           />
-          <input type="submit" onClick={handleSubmit}/>
+          <input type="submit" onClick={handleSubmit} placeholder="Enter"/>
         </form>
         <div className="links">
           <Link to={"/SignUp"}><p>Don't you have an account?</p></Link>
