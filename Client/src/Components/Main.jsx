@@ -6,18 +6,29 @@ import Tasks from "../Components/Tasks"
 import logout from "../images/logout.png"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import quotesData from "../quotes.json"
 
 const Main = ({id,onLogOut}) => {
 
-  const [quotes, setQuotes] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const getUser = window.localStorage.getItem("username")
+
+  
+  const getRandomQuotes = () => {
+
+    const randomIndex = Math.floor(Math.random() * quotesData.length);
+    return quotesData[randomIndex];
+
+ }
+
+ const [quotes, setQuotes] = useState(getRandomQuotes);
 
   console.log(getUser)
 
   useEffect(() => {
 
+    setQuotes(getRandomQuotes())
+
+    /*
     const fetchQuotes = async () => {
 
     try {
@@ -36,8 +47,11 @@ const Main = ({id,onLogOut}) => {
    };
 
   fetchQuotes();
+
+  */
   
  }, []);
+
 
 
   const reload = () => {
@@ -65,16 +79,10 @@ const Main = ({id,onLogOut}) => {
         </div>
       </div>
       <div className="quotes">
-        {loading ? (
-          <div className="quoteLoading">
-            <h1>Loading Quotes...</h1>
-          </div>
-        ) : (
           <div className="quote">
             <h1>{quotes && quotes.text}</h1>
             <h2>{quotes && quotes.author}</h2>
           </div>
-        )}
       </div>
       <Tasks onLogOut={onLogOut}/>
       <Footer />
