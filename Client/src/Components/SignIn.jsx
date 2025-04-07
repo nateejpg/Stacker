@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -18,6 +18,17 @@ const SignIn = ({onLogin}) => {
     setUserLogin((prev) => ({...prev, [e.target.name]: e.target.value}));
 
   }
+
+  const [color, setColor] = useState('');
+
+  useEffect(() => {
+
+    const cores = ['#ff474c', 'yellow', 'lightgreen'];
+    const randomColor = cores[Math.floor(Math.random() * cores.length)]
+
+    setColor(randomColor)
+
+  })
 
   const handleSubmit = async (e) => {
 
@@ -56,7 +67,7 @@ const SignIn = ({onLogin}) => {
 
   return (
     <div className="sign">
-      <div className="formContainer">
+      <div className="formContainer" style = {{backgroundColor: color}}>
         <div className="titleContainer">
           <h1>Login</h1>
         </div>
@@ -78,7 +89,7 @@ const SignIn = ({onLogin}) => {
           <input type="submit" onClick={handleSubmit} placeholder="Enter"/>
         </form>
         <div className="links">
-          <Link to={"/SignUp"}><p>Don't you have an account?</p></Link>
+          <Link to={"/SignUp"} style={{border: "none", textDecoration: "underline", textDecorationThickness: "2px", color: "black", textUnderlineOffset: "3px"}}><p>Don't you have an account?</p></Link>
         </div>
       </div>
     </div>
