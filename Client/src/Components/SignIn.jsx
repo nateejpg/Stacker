@@ -89,7 +89,7 @@ const SignIn = ({onLogin}) => {
           <input type="submit" onClick={handleSubmit} placeholder="Enter"/>
         </form>
         <div className="links">
-          <Link to={"/SignUp"} style={{border: "none", textDecoration: "underline", textDecorationThickness: "2px", color: "black", textUnderlineOffset: "3px"}}><p>Don't you have an account?</p></Link>
+          <Link to={"/SignUp"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}><p>Don't you have an account?</p></Link>
         </div>
       </div>
     </div>

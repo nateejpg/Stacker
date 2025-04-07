@@ -423,8 +423,16 @@ input::placeholder {
 }
 
 .sign .formContainer .links a p {
-  font-size: 27px;
+  font-size: 30px;
   color: black;
+  border: none;
+  outline: none;
+}
+
+.sign .formContainer .links a p:hover {
+  font-size: 31px;
+  transition: 0.5s;
+  color: blue;
   border: none;
   outline: none;
 }
