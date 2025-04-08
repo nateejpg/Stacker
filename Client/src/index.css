@@ -450,18 +450,15 @@ input::placeholder {
 }
 
 .sign .formContainer .links a p {
-  font-size: 30px;
+  font-size: 25px;
   color: black;
   border: none;
   outline: none;
 }
 
 .sign .formContainer .links a p:hover {
-  font-size: 31px;
   transition: 0.5s;
   color: blue;
-  border: none;
-  outline: none;
 }
 
 .sign .links {
@@ -646,7 +643,6 @@ input::placeholder {
 
 .sign .formContainer form {
   gap: 40px;
-
 }
 
 .sign .formContainer .links a p {
@@ -661,6 +657,17 @@ input::placeholder {
   font-size: 20px;
   width: 100px;
   height: 40px;
+}
+
+.sign .formContainer .headerContainer img{
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+}
+
+.sign .formContainer .headerContainer img:hover{
+  width: 33px;
+  height: 33px;
 }
 
 .header .head01 h1 {
