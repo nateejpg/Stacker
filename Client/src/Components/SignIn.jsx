@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import todo1 from "../images/todo1.png"
 import axios from "axios";
 
 
@@ -28,7 +29,7 @@ const SignIn = ({onLogin}) => {
 
     setColor(randomColor)
 
-  })
+  },[])
 
   const handleSubmit = async (e) => {
 
@@ -65,9 +66,18 @@ const SignIn = ({onLogin}) => {
 
   }
 
+  const handleClick = () => {
+
+    navigate("/")
+
+  }
+
   return (
     <div className="sign">
       <div className="formContainer" style = {{backgroundColor: color}}>
+        <div className="headerContainer">
+            <img src={todo1} className="logo"onClick={handleClick} />
+        </div>
         <div className="titleContainer">
           <h1>Login</h1>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import todo1 from "../images/todo1.png";
 import axios from "axios";
 
 const SignUp = () => {
@@ -9,6 +10,8 @@ const SignUp = () => {
     email: "",
     password: "",
   })
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
 
@@ -24,7 +27,7 @@ const SignUp = () => {
 
     setColor(randomColor)
 
-  })
+  },[])
 
   const handleClick = async (e) => {
 
@@ -46,13 +49,17 @@ const SignUp = () => {
   }
   }
 
-  const navigate = useNavigate();
+  const handleClickBack = () => {
 
-  console.log(userInfo);
+      navigate("/")
+  }
 
   return (
     <div className="sign">
       <div className="formContainer" style = {{backgroundColor: color}}>
+      <div className="headerContainer">
+        <img src={todo1} className="logo" onClick={handleClickBack}/>
+      </div>
         <div className="titleContainer">
           <h1>Register</h1>
         </div>
