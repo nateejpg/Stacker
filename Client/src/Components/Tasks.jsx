@@ -37,6 +37,10 @@ const Tasks = () => {
       }
     };
 
+    const handleAfterAdd = (newItem) => {
+    setToDos(prev => [...prev, newItem]);
+  };
+
 
   useEffect(() => {
     fetchTodos();
@@ -179,7 +183,7 @@ const Tasks = () => {
 
   return (
     <div className="wrapper">
-      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])} onAfterAdd = {fetchTodos}/>
+      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])} onAfterAdd = {handleAfterAdd}/>
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (

@@ -19,8 +19,7 @@ const AddStack = ({onTempAdd, onAfterAdd}) => {
      axios.post(`${API_URL}add`, {...newItem, userId})
     .then(result => {
       console.log(result);
-      if(onAfterAdd) onAfterAdd();
-      window.location.reload();
+      if(onAfterAdd) onAfterAdd(result.data);
     })
     .catch(err => console.log(err))
 
