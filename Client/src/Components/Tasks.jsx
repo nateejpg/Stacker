@@ -33,7 +33,7 @@ const Tasks = () => {
           const response = await axios.get(`${API_URL}get/` + userId);
           setToDos(response.data);
         } else {
-          const response = await fetch("https://stacker-server.vercel.app/default");
+          const response = await fetch(`${API_URL}default`);
           const data = await response.json();
           setTempTodos(data);
         }
@@ -46,7 +46,7 @@ const Tasks = () => {
   }, [userId]);
 
   const handleDelete = (id) => {
-    axios.delete(`${API_URL}/delete/` + id)
+    axios.delete(`${API_URL}delete/` + id)
       .then(() => window.location.reload())
       .catch(err => console.log(err));
   };
@@ -68,7 +68,7 @@ const Tasks = () => {
   };
 
   const handleUpdate = (id) => {
-    axios.put(`${API_URL}/update/` + id, { content: editContent, difficulty: editDifficulty })
+    axios.put(`${API_URL}update/` + id, { content: editContent, difficulty: editDifficulty })
       .then(() => {
         setToDos(prev =>
           prev.map(todo =>
