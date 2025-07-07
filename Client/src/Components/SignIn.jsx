@@ -11,6 +11,7 @@ const SignIn = () => {
   const [color, setColor] = useState('');
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const API_URL = process.env.REACT_APP_API_URL
 
   useEffect(() => {
 
@@ -25,7 +26,7 @@ const SignIn = () => {
 
     e.preventDefault();
 
-    axios.post('http://localhost:3001/login', { email, password})
+    axios.post(`${API_URL}/login`, { email, password})
     .then(res => {
       
       if(res.data.success){

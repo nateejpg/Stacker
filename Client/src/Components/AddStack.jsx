@@ -8,6 +8,7 @@ const AddStack = ({onTempAdd}) => {
   const [content, SetContent] = useState('');
   const [difficulty, setDifficulty] = useState('')
   const difs = ["ToSet", "Hard", "Moderate", "Easy"]
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleAdd = () => {
 
@@ -15,7 +16,7 @@ const AddStack = ({onTempAdd}) => {
   const newItem = {content, difficulty}
 
    if(userId){
-     axios.post('http://localhost:3001/add', {...newItem, userId})
+     axios.post(`${API_URL}add`, {...newItem, userId})
     .then(result => console.log(result))
     .catch(err => console.log(err))
 

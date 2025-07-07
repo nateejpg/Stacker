@@ -14,8 +14,10 @@ const Tasks = () => {
   const [editDifficulty, setEditDifficulty] = useState("");
   const userId = window.localStorage.getItem("userId");
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const getColor = (difficulty) => {
-    switch (difficulty) {
+    switch (difficulty) { 
       case "Hard": return "rgb(245, 29, 29)";
       case "Moderate": return "yellow";
       case "Easy": return "lightgreen";
@@ -28,7 +30,7 @@ const Tasks = () => {
     const fetchDefault = async () => {
       try {
         if (userId) {
-          const response = await axios.get("http://localhost:3001/get/" + userId);
+          const response = await axios.get(`${API_URL}get/` + userId);
           setToDos(response.data);
         } else {
           const response = await fetch("https://stacker-server.vercel.app/default");
@@ -44,7 +46,7 @@ const Tasks = () => {
   }, [userId]);
 
   const handleDelete = (id) => {
-    axios.delete("http://localhost:3001/delete/" + id)
+    axios.delete(`${API_URL}/delete/` + id)
       .then(() => window.location.reload())
       .catch(err => console.log(err));
   };
@@ -66,7 +68,7 @@ const Tasks = () => {
   };
 
   const handleUpdate = (id) => {
-    axios.put("http://localhost:3001/update/" + id, { content: editContent, difficulty: editDifficulty })
+    axios.put(`${API_URL}/update/` + id, { content: editContent, difficulty: editDifficulty })
       .then(() => {
         setToDos(prev =>
           prev.map(todo =>

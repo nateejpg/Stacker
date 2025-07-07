@@ -11,6 +11,7 @@ const SignUp = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
 
@@ -23,7 +24,7 @@ const SignUp = () => {
 
   const handleRegister = async () => {
 
-    axios.post('http://localhost:3001/register', {username: username, email: email, password: password})
+    axios.post(`${API_URL}/register`, {username: username, email: email, password: password})
     .then(result => {
       alert('You have successfully registered, now you can log in!');
       window.location.reload('');
