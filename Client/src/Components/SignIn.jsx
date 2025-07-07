@@ -26,7 +26,7 @@ const SignIn = () => {
 
     e.preventDefault();
 
-    axios.post(`${API_URL}/login`, { email, password})
+    axios.post(`${API_URL}login`, { email, password})
     .then(res => {
       
       if(res.data.success){

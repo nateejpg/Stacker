@@ -24,7 +24,7 @@ const SignUp = () => {
 
   const handleRegister = async () => {
 
-    axios.post(`${API_URL}/register`, {username: username, email: email, password: password})
+    axios.post(`${API_URL}register`, {username: username, email: email, password: password})
     .then(result => {
       alert('You have successfully registered, now you can log in!');
       window.location.reload('');
