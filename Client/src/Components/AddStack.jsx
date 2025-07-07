@@ -1,57 +1,33 @@
 import React from 'react'
 import {useState} from 'react';
 import axios from "axios"
-import { v4 as uuidv4 } from 'uuid';
 
-const AddStack = ({onClick}) => {
+const AddStack = ({onTempAdd}) => {
     
-    const getter = window.localStorage.getItem("idKey");
-    const [stack, setStack] = useState({
-        content: "Don't leave me empty ;)",
-        difficulty: "Hard",
-        userId: parseInt(getter)
-      })
 
-    const [tempStack, setTempStack] = useState({
+  const [content, SetContent] = useState('');
+  const [difficulty, setDifficulty] = useState('')
+  const difs = ["ToSet", "Hard", "Moderate", "Easy"]
 
-      id: uuidv4(),
-      content:"Dont leave me empty ;)",
-      difficulty: "Hard",
-    })
+  const handleAdd = () => {
 
+  const userId = window.localStorage.getItem('userId')
+  const newItem = {content, difficulty}
 
-      const addToDo = async () => {
+   if(userId){
+     axios.post('http://localhost:3001/add', {...newItem, userId})
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
 
-        if(!getter){
-
-          onClick(tempStack);
-
-          const inputSelect = document.querySelector('input[type="text"]');
-
-          inputSelect.value = "";
-
-          
-        }else{
-
-        try{
-          await axios.post("https://stacker-server.vercel.app/Stacks", stack);
-        }catch(err){
-          console.log(err);
-        }
-
-        window.location.reload();
-    
-      }
-
-    }
+    window.location.reload()
 
 
-      const handleChange = (e) => {
+   }else{
 
-        setStack((prev) => ({...prev,[e.target.name]: e.target.value}));
-        setTempStack((prev) => ({...prev, [e.target.name]: e.target.value}))
-    
-      }
+    if(onTempAdd) onTempAdd(newItem)
+
+   }
+  }
 
   return (
     <div className="crud">
@@ -59,19 +35,16 @@ const AddStack = ({onClick}) => {
       type= "text"
       name = "content"
       placeholder="Enter your Stack!"
-      onChange={handleChange}
+      onChange={(e) => SetContent(e.target.value)}
       maxLength={90}
       id="myPlaceholder"
     />
-    <select
-      name="difficulty"
-      onChange={handleChange}
-    >
-      <option value="Hard">Urgent 🔴</option>
-      <option value="Moderate"> Queued 🟡</option>
-      <option value="Easy">  Paced 🟢</option>
+    <select name="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
+      {difs.map(d => (
+        <option key={d} value={d}>{d}</option>
+      ))}
     </select>
-    <button onClick={addToDo}>Add Stack</button>
+    <button onClick={handleAdd}>Add Stack</button>
   </div>
   )
 }

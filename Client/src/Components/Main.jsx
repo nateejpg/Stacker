@@ -8,9 +8,10 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import quotesData from "../quotes.json"
 
-const Main = ({id,onLogOut}) => {
+const Main = () => {
 
-  const getUser = window.localStorage.getItem("username")
+  const getUser = window.localStorage.getItem("username");
+  const getId = window.localStorage.getItem('userId');
 
   
   const getRandomQuotes = () => {
@@ -52,7 +53,14 @@ const Main = ({id,onLogOut}) => {
   
  }, []);
 
+  const logOut = () => {
 
+    window.localStorage.removeItem('userId');
+    window.localStorage.removeItem('username');
+
+    window.location.reload();
+    
+  }
 
   const reload = () => {
 
@@ -64,13 +72,13 @@ const Main = ({id,onLogOut}) => {
     <div className="wrapper">
       <div className="header">
        <div className="head01">
-        {id ? <h1>Hello <span>{getUser}</span>!</h1> : <a className="logo" onClick={reload}>
+        {getId ? <h1>Hello <span>{getUser}</span>!</h1> : <a className="logo" onClick={reload}>
           <img src={todo1}></img>
         </a>}
         </div>
         <div className="head02"><h1>Stacker</h1></div>
        <div className="head03"> 
-        { id ? (<a className="login"><button onClick={onLogOut}><img src={logout}></img></button></a>) : (
+        { getId ? (<a className="login"><button onClick={logOut}><img src={logout}></img></button></a>) : (
         <a className="login">
           <Link to={"/SignIn"}>
             <img src={login}></img>
@@ -84,7 +92,7 @@ const Main = ({id,onLogOut}) => {
             <h2>{quotes && quotes.author}</h2>
           </div>
       </div>
-      <Tasks onLogOut={onLogOut}/>
+      <Tasks/>
       <Footer />
     </div>
   );

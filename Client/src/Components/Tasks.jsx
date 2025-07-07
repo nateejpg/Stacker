@@ -5,17 +5,15 @@ import done from "../images/done.png";
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
 import axios from "axios";
-import { v4 as uuidv4 } from 'uuid';
 
 const Tasks = () => {
   const [toDos, setToDos] = useState([]);
+  const [temTodos, setTempTodos] = useState([]);
   const [editingToDo, setEditingToDo] = useState(null);
-  const [defaultA, setDefaultA] = useState([]);
-  const [UpdateFlag, setUpdateFlag] = useState("")
-  const [updatedStack, setUpdatedStack] = useState({
-    content: "Don't leave me empty! ;)",
-    difficulty: "Hard",
-  });
+  const [editContent, setEditContent] = useState('');
+  const [editDifficulty, setEditDifficulty] = useState('');
+  const userId = window.localStorage.getItem("userId");
+
   
   const getColor = (difficulty) => {
     switch (difficulty) {
@@ -25,234 +23,215 @@ const Tasks = () => {
         return "yellow";
       case "Easy":
         return "lightgreen";
-      case "Default":
+      case "toSet":
         return "red";
     }
   };
 
-
-
  useEffect(() => {
   
-  const getter = window.localStorage.getItem("idKey");
-  setUpdateFlag(getter)
-
-
   const fetchDefault = async () => {
 
      try{
-          const response = await fetch("https://stacker-server.vercel.app/default");
-          const data = await response.json();
+          if(userId){
 
-          setDefaultA(data);
+            const response = await axios.get('http://localhost:3001/get/' + userId)
+            setToDos(response.data)
+          }
+          else{
+
+            const response = await fetch('https://stacker-server.vercel.app/default')
+            const data = await response.json();
+
+          }
 
       }catch(err){
            console.log(err);
        }
    }
 
-  const fetchStacks = async () => {
-
-   try{
-
-      const response = await axios.get(`https://stacker-server.vercel.app/userStack?userId=${getter}`);
-
-      setToDos(response.data);
-
-   }catch(err){
-      console.log(err)
-     }
- }
-
+   
   fetchDefault();
-  fetchStacks();
 
- },[])
+ },[userId])
 
+  const handleDelete = (id) => {
 
-  const editToDo = (todoID) => {
+      axios.delete('http://localhost:3001/delete/'+id)
+      .then(() => window.location.reload())
+      .catch(err => console.log(err))
 
-    setEditingToDo(todoID);
+    window.location.reload()
+  }
 
-  };
+// Abrir
 
+  const handleEditClick = (id, content, difficulty) => {
 
-  const handleAdd = (tempTasks) => {
-    const taskWithUniqueId = {
-      ...tempTasks,
-      id: uuidv4()
-    };
-    setToDos(prevToDos => [...prevToDos, taskWithUniqueId]);
-  };
-  
-
-  const handleChangeUpdate = (e) => {
-
-    setUpdatedStack((prev) => ({...prev, [e.target.name]: e.target.value}));
+    setEditingToDo(id);
+    setEditContent(content);
+    setEditDifficulty(difficulty)
 
   }
 
-  const handleDelete = async (id) => {
+  // Fechar 
+  
+  const handleUpdate = (id) => {
 
-      try{
+    axios.put('http://localhost:3001/update/' + id, {content: editContent, difficulty: editDifficulty})
+    .then(result => {
+      setToDos(prev =>
+        prev.map(todo => 
+          todo._id === id
+          ? {...todo, content: editContent, difficulty: editDifficulty}
+          : todo
+        )
+      )
+      setEditContent('');
+      setEditDifficulty('');
+      setEditingToDo(null)
+    })
+    .catch(err => console.log(err))
 
-        await axios.delete(`https://stacker-server.vercel.app/Stacks/${id}`);
-  
-        const updatedItems = toDos.filter(stack => stack.id !== id);
-  
-        setToDos(updatedItems);
-  
-      }catch(err){
-        console.log(err)
-      }
+
   }
-
-
-  const handleUpdate = async (id) => {
-
-    if (!UpdateFlag) {
-
-      const taskToUpdate = toDos.find((toDo) => toDo.id === id);
-  
-
-      if (taskToUpdate) {
-
-        
-        const updatedTask = {
-          ...taskToUpdate,
-
-          content:updatedStack.content,
-          difficulty:updatedStack.difficulty,
-        };
-  
-
-        setToDos((prevToDos) => prevToDos.map((toDo) => (toDo.id === id ? updatedTask : toDo)));
-  
-
-        setEditingToDo(null);
-      }
-    }else{
-
-      try{
-
-        await axios.put(`https://stacker-server.vercel.app/Stacks/${id}`, updatedStack);
-        
-        setEditingToDo(null);
-  
-        window.location.reload();
-        
-      }catch(err){
-  
-        console.log(err);
-  
-      }
-
-    }
-  }
-
 
   return (
-    <div className="wrapper">
-      <AddStack onClick={handleAdd}/>
+  <div className="wrapper">
+    <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])} />
+    <div className="toDoWrapper">
+      {toDos.length === 0 ? (
         <div className="toDoWrapper">
-        {(toDos.length === 0) ? (
-          <div className="toDoWrapper">
-          <div className="toDoColor" style={{background: getColor("Hard")}}>
-            <div className="toDoText"><h1>Estudar para a prova de Cálculo!</h1></div>
+          <div className="toDoColor" style={{ background: getColor("Hard") }}>
+            <div className="toDoText">
+              <h1>Estudar para a prova de Cálculo!</h1>
+            </div>
             <div className="toDoBtn">
               <button>
-              <img src={trash}></img>
-             </button>
-        <div>
-          <button><img src={edit}/></button>
-        </div>
-      </div>
-      </div>
-          <div className="toDoColor" style={{background: getColor("Moderate")}}>
-            <div className="toDoText"><h1>Apprenez à faire des macarons et invitez des amis.</h1></div>
-            <div className="toDoBtn">
-              <button>
-              <img src={trash}></img>
-             </button>
-        <div>
-          <button><img src={edit}/></button>
-        </div>
-      </div>
-      </div>
-          <div className="toDoColor" style={{background: getColor("Easy")}}>
-            <div className="toDoText"><h1>esen Sie den kleinen Prinzen und geben Sie online eine Rezension ab</h1></div>
-            <div className="toDoBtn">
-              <button>
-              <img src={trash}></img>
-             </button>
-        <div>
-          <button><img src={edit}/></button>
-        </div>
-      </div>
-      </div>
-          <div className="toDoColor" style={{background: getColor("Moderate")}}>
-            <div className="toDoText"><h1>友達と遊ぶためにギターの弾き方を学ぶ</h1></div>
-            <div className="toDoBtn">
-              <button>
-              <img src={trash}></img>
-             </button>
-        <div>
-          <button><img src={edit}/></button>
-        </div>
-      </div>
-      </div>
-          <div className="toDoColor" style={{background: getColor("Hard")}}>
-            <div className="toDoText"><h1>Study FullStack development and create an application</h1></div>
-            <div className="toDoBtn">
-              <button>
-              <img src={trash}></img>
-             </button>
-        <div>
-          <button><img src={edit}/></button>
-        </div>
-      </div>
-      </div>
-          </div>
-        ) : (toDos.map((toDo) => (
-            <div
-              className="toDoColor"
-              key={toDo.id}
-              style={{ background: getColor(toDo.difficulty)}}
-            >
-              {editingToDo === toDo.id ? (
-                <div className="saveToDo">
-                  <input
-                    placeholder="Edit your ToDo"
-                    type="text"
-                    name="content"
-                    id="myPlaceholder"
-                    onChange={handleChangeUpdate}
-                  />
-                  <div className="saveToDoBtns">
-                  <button value ="Hard" name="difficulty" onClick={handleChangeUpdate} >🔴</button>
-                  <button value="Easy" name="difficulty" onClick={handleChangeUpdate}>🟢</button>
-                  <button value="Moderate" name="difficulty" onClick={handleChangeUpdate}>🟡</button>
-                  </div>
-                  <button onClick={() => handleUpdate(toDo.id)}>
-                    <img src={done}></img>
-                  </button>
-                </div>
-              ) : (
-                <div className="toDoText">
-                  <h1>{toDo.content}</h1>
-                </div>
-              )}
-              <div className="toDoBtn">
-                <button onClick={() => handleDelete(toDo.id)}>
-                  <img src={trash}></img>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button>
+                  <img src={edit} alt="edit" />
                 </button>
-                <div><button onClick={() => editToDo(toDo.id)}><img src={edit}/></button></div>
               </div>
             </div>
-          ))) }
-      </div>
+          </div>
+          <div className="toDoColor" style={{ background: getColor("Moderate") }}>
+            <div className="toDoText">
+              <h1>Apprenez à faire des macarons et invitez des amis.</h1>
+            </div>
+            <div className="toDoBtn">
+              <button>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button>
+                  <img src={edit} alt="edit" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="toDoColor" style={{ background: getColor("Easy") }}>
+            <div className="toDoText">
+              <h1>esen Sie den kleinen Prinzen und geben Sie online eine Rezension ab</h1>
+            </div>
+            <div className="toDoBtn">
+              <button>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button>
+                  <img src={edit} alt="edit" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="toDoColor" style={{ background: getColor("Moderate") }}>
+            <div className="toDoText">
+              <h1>友達と遊ぶためにギターの弾き方を学ぶ</h1>
+            </div>
+            <div className="toDoBtn">
+              <button>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button>
+                  <img src={edit} alt="edit" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="toDoColor" style={{ background: getColor("Hard") }}>
+            <div className="toDoText">
+              <h1>Study FullStack development and create an application</h1>
+            </div>
+            <div className="toDoBtn">
+              <button>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button>
+                  <img src={edit} alt="edit" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : userId ? (
+        toDos.map((toDo) => (
+          <div
+            className="toDoColor"
+            key={toDo._id}
+            style={{ background: getColor(toDo.difficulty) }}
+          >
+            {editingToDo === toDo._id ? (
+              <div className="saveToDo">
+                <input
+                  placeholder="Edit your ToDo"
+                  type="text"
+                  name="content"
+                  id="myPlaceholder"
+                  value={editContent}
+                  onChange={(e) => setEditContent(e.target.value)}
+                />
+                <div className="saveToDoBtns">
+                  <button name="difficulty" onClick={() => setEditDifficulty('Hard')}>🔴</button>
+                  <button value="Easy" name="difficulty" onClick={() => setEditDifficulty('Easy')}>🟢</button>
+                  <button value="Moderate" name="difficulty" onClick={() => setEditDifficulty('Moderate')}>🟡</button>
+                </div>
+                <button onClick={() => handleUpdate(toDo._id)}>
+                  <img src={done} alt="done" />
+                </button>
+              </div>
+            ) : (
+              <div className="toDoText">
+                <h1>{toDo.content}</h1>
+              </div>
+            )}
+            <div className="toDoBtn">
+              <button onClick={() => handleDelete(toDo._id)}>
+                <img src={trash} alt="delete" />
+              </button>
+              <div>
+                <button onClick={() => handleEditClick(toDo._id, toDo.content, toDo.difficulty)}>
+                  <img src={edit} alt="edit" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div>
+          {temTodos.map(tt => (
+            <div key={tt._id}>
+              {tt.content}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  );
-};
+  </div>
+)}
 
 export default Tasks;

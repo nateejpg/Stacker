@@ -5,22 +5,12 @@ import todo1 from "../images/todo1.png"
 import axios from "axios";
 
 
-const SignIn = ({onLogin}) => {
-  
-  const [userLogin, setUserLogin] = useState({
-    email: '',
-    password: '',
-  })
+const SignIn = () => {
 
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-
-    setUserLogin((prev) => ({...prev, [e.target.name]: e.target.value}));
-
-  }
-
   const [color, setColor] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
 
@@ -31,39 +21,26 @@ const SignIn = ({onLogin}) => {
 
   },[])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
 
     e.preventDefault();
 
-    try{
+    axios.post('http://localhost:3001/login', { email, password})
+    .then(res => {
+      
+      if(res.data.success){
+        alert(`Hello ${res.data.username}, you can start stacking around!`)
+        localStorage.setItem('userId', res.data.userId)
+        localStorage.setItem('username', res.data.username)
+        navigate('/')
 
-      const res = await axios.post("https://stacker-server.vercel.app/login", userLogin);
-      console.log("Login successful", res.data);
-
-      const username = res.data.user.username;
-
-      console.log(res.data);
-
-      onLogin({
-        id: res.data.user.id,
-        username: res.data.user.username,
-      })
-
-      alert(`Hello ${username}, welcome abord!`)
-
-      navigate("/");
-
-      window.location.reload();
-
-    }catch(err){
-      if (err.response && err.response.data && err.response.data.error) {
-        console.log('Login failed:', err.response.data.error);
-        alert("There was an error, try again!")
-    } else {
-        console.log('An error occurred:', err.message);
-    }
-    }
-
+      }else{
+        alert('There was an error, try again!')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('username')
+      }
+    })
+    .catch(err => console.log(err))
   }
 
   const handleClick = () => {
@@ -81,25 +58,26 @@ const SignIn = ({onLogin}) => {
         <div className="titleContainer">
           <h1>Login</h1>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Enter your Email:"
             name = "email"
-            onChange={handleChange}
-            id="mySecondPlaceholder"
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
           <input
             type="password"
             placeholder="Enter your Password:"
             name = "password"
-            onChange={handleChange}
-            id="mySecondPlaceholder"
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete=""
           />
-          <input type="submit" onClick={handleSubmit} placeholder="Enter"/>
+          <input type="submit" onClick={handleSubmit} value="Enter"/>
         </form>
         <div className="links">
-          <Link to={"/SignUp"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}><p>Don't have an account?</p></Link>
+          <Link to={"/SignUp"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}>
+          <p>Don't have an account?</p></Link>
         </div>
       </div>
     </div>

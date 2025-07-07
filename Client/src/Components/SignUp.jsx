@@ -5,20 +5,12 @@ import axios from "axios";
 
 const SignUp = () => {
 
-  const [userInfo, setUserInfo] = useState({
-    username: "",
-    email: "",
-    password: "",
-  })
-
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-
-    setUserInfo((prev) => ({...prev, [e.target.name]: e.target.value}))
-  }
-
   const [color, setColor] = useState('');
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
 
@@ -29,24 +21,15 @@ const SignUp = () => {
 
   },[])
 
-  const handleClick = async (e) => {
+  const handleRegister = async () => {
 
-    e.preventDefault();
+    axios.post('http://localhost:3001/register', {username: username, email: email, password: password})
+    .then(result => {
+      alert('You have successfully registered, now you can log in!');
+      window.location.reload('');
+    })
+    .catch(err => console.log(err))
 
-    try{
-
-      if(userInfo.email && userInfo.username && userInfo.password !== ""){
-
-      await axios.post("https://stacker-server.vercel.app/users", userInfo);
-      alert(`Congratulations ${userInfo.username}, you've created an account!`);
-      navigate("/signIn")
-
-    }else{
-      alert("There was an error with the credentials you entered! please, try again!")
-    }
-  }catch(err){
-    return console.log(err);
-  }
   }
 
   const handleClickBack = () => {
@@ -68,24 +51,24 @@ const SignUp = () => {
             type="text"
             placeholder="Enter your Username:"
             name = "username"
-            onChange={handleChange}
+            onChange={(e) => setUsername(e.target.value)}
             id="mySecondPlaceholder"
           />
           <input
             type="email"
             placeholder="Enter your Email:"
             name = "email"
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             id="mySecondPlaceholder"
           />
           <input
             type="password"
             placeholder="Enter your Password:"
             name="password"
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             id="mySecondPlaceholder"
           />
-          <input type="submit" onClick={handleClick}/>
+          <input type="submit" onClick={handleRegister}/>
         </form>
         <div className="links">
           <Link to={"/signIn"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}>

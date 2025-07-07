@@ -1,215 +1,108 @@
-import dotenv from 'dotenv';
-dotenv.config();
 
-import express from "express"
-import cors from "cors";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs"
-import db from "./db.js";
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
+const StackerModel = require('./stacks')
+const UserModel = require('./User')
+require('dotenv').config();
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+const app = express()
 
-
-app.listen(8800, () => {
-    console.log("backend is up!")
-})
-
-app.get("/", (req, res) => {
-    res.json("Welcome to the backend")
-})
-
-// General Tasks
-
-app.get("/stacks", (req, res) => {
-
-    const sql = "SELECT * FROM tasks";
-
-    db.query(sql, (err, data) => {
-
-        if(err){
-            res.json(err);
-        }else{
-            res.json(data);
-        }
-    })
-
-})
-
-// Get stacks from only one user!
-
-app.get("/userStack",(req, res) => {
+app.use(express.json())
+app.use(cors())
+mongoose.connect(process.env.MONGO)
 
 
-    const userId = req.query.userId;
-    const sql = "SELECT * FROM tasks WHERE userId = ?";
+app.post('/add', (req, res) => {
 
-    db.query(sql, [userId], (err,data) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json({ error: "Failed to retrieve Tasks" });
-          } else {
-            console.log("Task from the user have been retrieved!", userId);
-            res.status(200).json(data);
-          }
-    })
-       
-})
+    const content = req.body.content;
+    const difficulty = req.body.difficulty;
+    const userId = req.body.userId;
 
-app.post("/stacks", (req,res) => {
+    StackerModel.create({
 
-    const sql = "INSERT INTO tasks (`content`, `difficulty`, `userId`) VALUES (?)";
-
-    const values = [
-        req.body.content,
-        req.body.difficulty,
-        req.body.userId
-    ]
-
-    db.query(sql,[values], (err, data) => {
-        if(err){
-            console.log(err);
-        }else{
-            res.json(data);
-        }
-    })
-})
-
-
-app.delete("/Stacks/:id", (req, res) => {
-
-    const userID = req.params.id;
-
-    const sql = "DELETE from tasks WHERE id = ?";
-
-    db.query(sql, [userID], (err,data) => {
-        if(err){
-            return res.json(err);
-        }else{
-            return res.json("Stack has been successfully deleted!");
-        }
-    })
-})
-
-app.put("/Stacks/:id", (req, res) => {
-
-    const userId = req.params.id;
-    const sql = "UPDATE tasks SET `content` = ?, `difficulty` = ? WHERE id = ?";
-
-    const values = [
-        req.body.content,
-        req.body.difficulty,
-    ]
-
-    db.query(sql, [...values, userId ], (err, data) => {
-
-        if(err){
-            console.log(err);
-        }else{
-            res.json(data);
-        }
+        content: content,
+        difficulty: difficulty,
+        user: userId
 
     })
-})
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
 
-// Users
-
-const JWT_SECRET = "key";
-
-const generateToken = (userId) => {
-
-    return jwt.sign({userId}, JWT_SECRET, {expiresIn: "1h"});
-
-}
-
-app.get("/users", (req, res) => {
-
-    const sql = "SELECT * from users";
-
-    db.query(sql, (err, data) => {
-
-        if(err){
-            console.log(err);
-        }else{
-            res.json(data);
-        }
-    });
 })
 
 
-app.post("/users", async (req, res) => {
+app.get('/get', (req, res) => {
+    
+    StackerModel.find()
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+
+})
+
+app.get('/get/:userId', (req, res) => {
+    StackerModel.find({user: req.params.userId})
+    .then(result => res.json(result))
+    .catch(err => res.status(500).json({error: err.message}))
+})
+
+app.delete('/delete/:id', (req,res) => {
+
+    const {id} = req.params;
+
+    StackerModel.findOneAndDelete({
+
+        _id: id
+
+    })
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+})
+
+app.put('/update/:id', (req, res) => {
+
+    const {id} = req.params;
+    const content = req.body.content;
+    const difficulty = req.body.difficulty;
+
+    StackerModel.findOneAndUpdate(
+        {_id: id},
+        {content: content, difficulty: difficulty},
+        { new: true })
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+
+})
+
+// Register And Login Methods
+
+app.post('/register', async (req, res) => {
 
     const {username, email, password} = req.body;
 
-    try{
-   
-    const hashedPassword = await bcrypt.hash(password, 10);
-     const sql = "INSERT INTO users (`username`, `email`, `password`) VALUES (?)";
+    const user = await UserModel.create(({username, email, password}));
 
-    const values = [
-        req.body.username,
-        req.body.email,
-        hashedPassword,
-    ]
+    res.json(user)
 
-    db.query(sql, [values], (err, data) => {
-
-        if(err){
-           return console.log(err);
-        }else{
-           return res.json("user has been created");
-        }
-    })
-
- }catch(err){
-    return console.log(err);
- }
 })
 
-app.post("/login", async (req, res) => {
 
-    const {email, password, username} = req.body;
+app.post('/login', async (req, res) => {
 
-    const sql = "SELECT * FROM users WHERE `email` = ?"
+    const {email, password} = req.body;
 
-    db.query(sql, [email], async (err, data) => {
+    const user = await UserModel.findOne({email, password});
 
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Internal server error" });
-        }
+    if(user){
+        res.json({success: true, userId: user._id, username: user.username})
+    }else{
+        res.json({success: false})
+    }
 
-        if (data.length === 0) {
-            return res.status(401).json({ error: "Invalid email or password" });
-        }
+})
 
-        try{
-            const isPasswordValid = await bcrypt.compare(password, data[0].password);
+app.listen( 3001, () => {
 
-            console.log(req.body)
-            console.log(password)
-            console.log("hashed pass", data[0].password)
-            console.log(email)
-            console.log(isPasswordValid)
+console.log('The app is listening on 3001')
 
-            if(!isPasswordValid){
-                return res.status(401).json({ error: "Invalid email or password aa" });
-            }
-
-            const token = generateToken(data[0].userId);
-            
-            const user = {
-                id: data[0].id,
-                username: data[0].username,
-                email: data[0].email,
-            }
-
-            return res.json({ message: "Login successful", token, user });
-
-
-        }catch(err){
-            return console.log(err);
-        }
-    })
 })
