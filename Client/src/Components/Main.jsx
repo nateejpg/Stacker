@@ -23,8 +23,6 @@ const Main = () => {
 
  const [quotes, setQuotes] = useState(getRandomQuotes);
 
-  console.log(getUser)
-
   useEffect(() => {
 
     setQuotes(getRandomQuotes())

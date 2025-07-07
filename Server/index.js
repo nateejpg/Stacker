@@ -69,6 +69,7 @@ app.put('/update/:id', (req, res) => {
         {_id: id},
         {content: content, difficulty: difficulty},
         { new: true })
+        
     .then(result => res.json(result))
     .catch(err => console.log(err))
 

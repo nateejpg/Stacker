@@ -19,14 +19,16 @@ const AddStack = ({onTempAdd}) => {
     .then(result => console.log(result))
     .catch(err => console.log(err))
 
-    window.location.reload()
-
 
    }else{
 
     if(onTempAdd) onTempAdd(newItem)
 
    }
+
+   SetContent('')
+   setDifficulty('')
+
   }
 
   return (
@@ -34,12 +36,14 @@ const AddStack = ({onTempAdd}) => {
     <input
       type= "text"
       name = "content"
+      value={content}
       placeholder="Enter your Stack!"
       onChange={(e) => SetContent(e.target.value)}
       maxLength={90}
       id="myPlaceholder"
+      autoComplete='off'
     />
-    <select name="difficulty" onChange={(e) => setDifficulty(e.target.value)}>
+    <select name="difficulty" onChange={(e) => setDifficulty(e.target.value)} value={difficulty}>
       {difs.map(d => (
         <option key={d} value={d}>{d}</option>
       ))}

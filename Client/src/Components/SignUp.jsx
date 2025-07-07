@@ -53,6 +53,7 @@ const SignUp = () => {
             name = "username"
             onChange={(e) => setUsername(e.target.value)}
             id="mySecondPlaceholder"
+            autoComplete="off"
           />
           <input
             type="email"
@@ -60,6 +61,7 @@ const SignUp = () => {
             name = "email"
             onChange={(e) => setEmail(e.target.value)}
             id="mySecondPlaceholder"
+            autoComplete="off"
           />
           <input
             type="password"
