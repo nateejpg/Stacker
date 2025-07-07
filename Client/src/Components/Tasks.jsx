@@ -37,18 +37,35 @@ const Tasks = () => {
       }
     };
 
-    const handleAfterAdd = (newItem) => {
-    setToDos(prev => [...prev, newItem]);
-  };
-
-
   useEffect(() => {
     fetchTodos();
   }, [userId]);
 
   const handleDelete = (id) => {
     axios.delete(`${API_URL}delete/` + id)
-      .then(() => window.location.reload())
+    .then(() => {
+      setToDos(prev => 
+        prev.filter(todo => todo._id !== id)
+      )
+    })
+      .catch(err => console.log(err));
+  };
+
+
+  const handleUpdate = (id) => {
+    axios.put(`${API_URL}update/` + id, { content: editContent, difficulty: editDifficulty })
+      .then(() => {
+        setToDos(prev =>
+          prev.map(todo =>
+            todo._id === id
+              ? { ...todo, content: editContent, difficulty: editDifficulty }
+              : todo
+          )
+        );
+        setEditContent("");
+        setEditDifficulty("");
+        setEditingToDo(null);
+      })
       .catch(err => console.log(err));
   };
 
@@ -66,23 +83,6 @@ const Tasks = () => {
     setEditingTempIndex(index);
     setEditContent(content);
     setEditDifficulty(difficulty);
-  };
-
-  const handleUpdate = (id) => {
-    axios.put(`${API_URL}update/` + id, { content: editContent, difficulty: editDifficulty })
-      .then(() => {
-        setToDos(prev =>
-          prev.map(todo =>
-            todo._id === id
-              ? { ...todo, content: editContent, difficulty: editDifficulty }
-              : todo
-          )
-        );
-        setEditContent("");
-        setEditDifficulty("");
-        setEditingToDo(null);
-      })
-      .catch(err => console.log(err));
   };
 
   const handleTempUpdate = (index) => {
@@ -183,7 +183,7 @@ const Tasks = () => {
 
   return (
     <div className="wrapper">
-      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])} onAfterAdd = {handleAfterAdd}/>
+      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}/>
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (

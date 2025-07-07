@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from 'react';
 import axios from "axios"
 
-const AddStack = ({onTempAdd, onAfterAdd}) => {
+const AddStack = ({onTempAdd, onAdd}) => {
     
 
   const [content, SetContent] = useState('');
@@ -17,13 +17,8 @@ const AddStack = ({onTempAdd, onAfterAdd}) => {
 
    if(userId){
      axios.post(`${API_URL}add`, {...newItem, userId})
-    .then(result => {
-      console.log(result);
-      if(onAfterAdd) onAfterAdd(result.data);
-      window.location.reload()
-    })
+    .then(document.location.reload())
     .catch(err => console.log(err))
-
 
    }else{
 
