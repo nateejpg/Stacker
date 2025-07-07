@@ -20,6 +20,7 @@ const AddStack = ({onTempAdd, onAfterAdd}) => {
     .then(result => {
       console.log(result);
       if(onAfterAdd) onAfterAdd();
+      window.location.reload();
     })
     .catch(err => console.log(err))
 
