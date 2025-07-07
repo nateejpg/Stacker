@@ -26,23 +26,20 @@ const Tasks = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchDefault = async () => {
+     const fetchTodos = async () => {
       try {
         if (userId) {
           const response = await axios.get(`${API_URL}get/` + userId);
           setToDos(response.data);
-        } else {
-          const response = await fetch(`${API_URL}default`);
-          const data = await response.json();
-          setTempTodos(data);
         }
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchDefault();
+
+  useEffect(() => {
+    fetchTodos();
   }, [userId]);
 
   const handleDelete = (id) => {
@@ -182,7 +179,7 @@ const Tasks = () => {
 
   return (
     <div className="wrapper">
-      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}/>
+      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])} onAfterAdd = {fetchTodos}/>
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (
