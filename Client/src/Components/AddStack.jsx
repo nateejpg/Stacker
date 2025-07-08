@@ -5,28 +5,31 @@ import axios from "axios"
 const AddStack = ({onTempAdd, onAdd}) => {
     
 
-  const [content, SetContent] = useState('');
-  const [difficulty, setDifficulty] = useState('')
+  const [content, setContent] = useState('');
+  const [difficulty, setDifficulty] = useState('toSet')
   const difs = ["ToSet", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleAdd = () => {
 
   const userId = window.localStorage.getItem('userId')
-  const newItem = {content, difficulty}
+
 
    if(userId){
-     axios.post(`${API_URL}add`, {...newItem, userId})
-    .then(document.location.reload())
+     axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
+    .then((res) => {
+      if(onAdd) onAdd(res.data)
+
+    })
     .catch(err => console.log(err))
 
    }else{
 
-    if(onTempAdd) onTempAdd(newItem)
+    if(onTempAdd) onTempAdd({content: content, difficulty: difficulty})
 
    }
 
-   SetContent('')
+   setContent('')
    setDifficulty('')
 
   }
@@ -38,7 +41,7 @@ const AddStack = ({onTempAdd, onAdd}) => {
       name = "content"
       value={content}
       placeholder="Enter your Stack!"
-      onChange={(e) => SetContent(e.target.value)}
+      onChange={(e) => setContent(e.target.value)}
       maxLength={90}
       id="myPlaceholder"
       autoComplete='off'

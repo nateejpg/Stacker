@@ -26,7 +26,7 @@ app.post('/add', (req, res) => {
         user: userId
 
     })
-    .then(result => console.log(result))
+    .then(result => res.json(result))
     .catch(err => console.log(err))
 
 })

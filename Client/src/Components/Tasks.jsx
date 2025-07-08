@@ -183,7 +183,7 @@ const Tasks = () => {
 
   return (
     <div className="wrapper">
-      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}/>
+      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}   onAdd={toDo => setToDos(todos => [...todos, toDo])} />
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (
