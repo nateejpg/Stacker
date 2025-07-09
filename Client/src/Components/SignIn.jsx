@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify'
 import { useState } from "react";
 import todo1 from "../images/todo1.png"
 import axios from "axios";
@@ -26,22 +27,28 @@ const SignIn = () => {
 
     e.preventDefault();
 
-    axios.post(`${API_URL}login`, { email, password})
+   if(email.length === 0){
+
+    toast.error('Add a valid email!');
+
+   }else{
+     axios.post(`${API_URL}login`, { email, password})
     .then(res => {
       
       if(res.data.success){
-        alert(`Hello ${res.data.username}, you can start stacking around!`)
+        toast.success(`Hello ${res.data.username}, you can start stacking around!`)
         localStorage.setItem('userId', res.data.userId)
         localStorage.setItem('username', res.data.username)
         navigate('/')
 
       }else{
-        alert('There was an error, try again!')
+        toast.error('There was an error, try again!')
         localStorage.removeItem('userId')
         localStorage.removeItem('username')
       }
     })
     .catch(err => console.log(err))
+   }
   }
 
   const handleClick = () => {
@@ -74,7 +81,7 @@ const SignIn = () => {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete=""
           />
-          <input type="submit" onClick={handleSubmit} value="Enter"/>
+          <button type="submit" className="submitButton">Enter</button>
         </form>
         <div className="links">
           <Link to={"/SignUp"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}>

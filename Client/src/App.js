@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import { useEffect, useState } from "react";
+import { ToastContainer } from 'react-toastify';
 import AddStack from "./Components/AddStack";
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path={"/AddStack"} element={<AddStack id={userId}/>}/>
         </Routes>
       </BrowserRouter>
+      <ToastContainer/>
     </div>
   );
 }

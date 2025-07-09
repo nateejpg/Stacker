@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 import todo1 from "../images/todo1.png";
 import axios from "axios";
@@ -22,12 +23,18 @@ const SignUp = () => {
 
   },[])
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+
+    e.preventDefault();
 
     axios.post(`${API_URL}register`, {username: username, email: email, password: password})
-    .then(result => {
-      alert('You have successfully registered, now you can log in!');
-      window.location.reload('');
+    .then(() => {
+      toast.success('You have successfully created an account, you can now log in!')
+      
+      setUsername('');
+      setEmail('');
+      setPassword('');
+
     })
     .catch(err => console.log(err))
 
@@ -47,7 +54,7 @@ const SignUp = () => {
         <div className="titleContainer">
           <h1>Register</h1>
         </div>
-        <form>
+        <form onSubmit={handleRegister}>
           <input
             type="text"
             placeholder="Enter your Username:"
@@ -55,6 +62,7 @@ const SignUp = () => {
             onChange={(e) => setUsername(e.target.value)}
             id="mySecondPlaceholder"
             autoComplete="off"
+            value={username}
           />
           <input
             type="email"
@@ -63,6 +71,7 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)}
             id="mySecondPlaceholder"
             autoComplete="off"
+            value={email}
           />
           <input
             type="password"
@@ -70,8 +79,9 @@ const SignUp = () => {
             name="password"
             onChange={(e) => setPassword(e.target.value)}
             id="mySecondPlaceholder"
+            value={password}
           />
-          <input type="submit" onClick={handleRegister}/>
+          <button type="submit" className="submitButton">Register</button>
         </form>
         <div className="links">
           <Link to={"/signIn"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}>

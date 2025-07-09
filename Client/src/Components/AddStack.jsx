@@ -1,12 +1,13 @@
 import React from 'react'
 import {useState} from 'react';
+import {toast} from 'react-toastify'
 import axios from "axios"
 
 const AddStack = ({onTempAdd, onAdd}) => {
     
 
   const [content, setContent] = useState('');
-  const [difficulty, setDifficulty] = useState('toSet')
+  const [difficulty, setDifficulty] = useState('ToSet')
   const difs = ["ToSet", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -14,20 +15,25 @@ const AddStack = ({onTempAdd, onAdd}) => {
 
   const userId = window.localStorage.getItem('userId')
 
+  if(content.length === 0){
 
-   if(userId){
+    toast.warn(`Don't leave me empty! ;)`)
+
+  }else{
+
+    if(userId){
      axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
-    .then((res) => {
-      if(onAdd) onAdd(res.data)
+     .then((res) => {
 
-    })
-    .catch(err => console.log(err))
+    }).catch(err => console.log(err))
 
    }else{
 
     if(onTempAdd) onTempAdd({content: content, difficulty: difficulty})
 
    }
+
+  }
 
    setContent('')
    setDifficulty('')
