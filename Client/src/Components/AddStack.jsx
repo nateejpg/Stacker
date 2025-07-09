@@ -7,35 +7,44 @@ const AddStack = ({onTempAdd, onAdd}) => {
     
 
   const [content, setContent] = useState('');
-  const [difficulty, setDifficulty] = useState('ToSet')
-  const difs = ["ToSet", "Hard", "Moderate", "Easy"]
+  const [difficulty, setDifficulty] = useState('Unclear')
+  const difs = ["Unclear", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleAdd = () => {
 
   const userId = window.localStorage.getItem('userId')
 
-  if(content.length === 0){
-
-    toast.warn(`Don't leave me empty! ;)`)
-
-  }else{
-
     if(userId){
-     axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
-     .then((res) => {
+     
+      if(content.length === 0){
 
-      if(onAdd) onAdd(res.data)
+        toast.warn('You need to add some content to your Stack!')
+
+        return;
+        
+      }else{
+        axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
+        .then((res) => {
+
+        if(onAdd) onAdd(res.data)
 
     }).catch(err => console.log(err))
+    
+   }
 
    }else{
 
-    if(onTempAdd) onTempAdd({content: content, difficulty: difficulty})
+    if(content.length === 0){
+      const newContent = `Don't leave me empty! :)`;
+      if(onTempAdd) onTempAdd({content: newContent, difficulty: difficulty})
+    }else{
+       if(onTempAdd) onTempAdd({content: content, difficulty: difficulty})
+    }
 
    }
 
-  }
+
 
    setContent('')
    setDifficulty('')
