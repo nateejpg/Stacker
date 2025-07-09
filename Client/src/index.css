@@ -681,6 +681,18 @@ input::placeholder {
 
 .sign .formContainer form input {
   font-size: 20px;
+  width: 90%;
+}
+
+.sign .submitButton{
+  width: 40%;
+  height: 13%;
+  font-size: 20px;
+}
+
+.sign .submitButton:hover{
+  width: 55%;
+  height: 14%;
 }
 
 .toDoColor .toDoBtn button img:hover {

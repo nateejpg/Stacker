@@ -25,6 +25,8 @@ const AddStack = ({onTempAdd, onAdd}) => {
      axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
      .then((res) => {
 
+      if(onAdd) onAdd(res.data)
+
     }).catch(err => console.log(err))
 
    }else{
