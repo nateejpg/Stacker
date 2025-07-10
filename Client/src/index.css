@@ -397,19 +397,19 @@ input::placeholder {
     background-color: transparent;
     text-decoration: none;
     border: none;
-    transition: 1s;
     cursor: pointer;
 }
 
 .sign .formContainer .headerContainer img{
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     background-color: transparent;
+    transition: 0.5s;
 }
 
 .sign .formContainer .headerContainer img:hover{
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
 }
 
 .sign .formContainer form {
@@ -471,6 +471,13 @@ input::placeholder {
   justify-content: center;
   border: none;
 }
+
+.imageContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @media (max-width: 992px){
 
@@ -661,13 +668,13 @@ input::placeholder {
   height: 40px;
 }
 
-.sign .formContainer .headerContainer img{
+.sign .formContainer .headerContainer .imageContainer img{
   width: 30px;
   height: 30px;
   background-color: transparent;
 }
 
-.sign .formContainer .headerContainer img:hover{
+.sign .formContainer .headerContainer .imageContainer img:hover{
   width: 33px;
   height: 33px;
 }
@@ -699,6 +706,20 @@ input::placeholder {
   width: 30px;
   height: 30px;
   transition: 0.5s;
+}
+
+.sign .links{
+  height: 10%;
+}
+
+.header .login img:hover{
+  width: 40px;
+  height: 40px;
+}
+
+.header .logo img:hover{
+  width: 40px;
+  height: 40px;
 }
 
 }

@@ -61,7 +61,9 @@ const SignIn = () => {
     <div className="sign">
       <div className="formContainer" style = {{backgroundColor: color}}>
         <div className="headerContainer">
+          <div className="imageContainer">
             <img src={todo1} className="logo"onClick={handleClick} />
+          </div>
         </div>
         <div className="titleContainer">
           <h1>Login</h1>

@@ -49,7 +49,9 @@ const SignUp = () => {
     <div className="sign">
       <div className="formContainer" style = {{backgroundColor: color}}>
       <div className="headerContainer">
-        <img src={todo1} className="logo" onClick={handleClickBack}/>
+        <div className="imageContainer">
+          <img src={todo1} className="logo" onClick={handleClickBack}/>
+        </div>
       </div>
         <div className="titleContainer">
           <h1>Register</h1>
