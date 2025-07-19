@@ -13,8 +13,10 @@ const Tasks = () => {
   const [editContent, setEditContent] = useState("");
   const [editDifficulty, setEditDifficulty] = useState("");
   const userId = window.localStorage.getItem("userId");
-
   const API_URL = process.env.REACT_APP_API_URL;
+
+  console.log(toDos)
+
 
   const getColor = (difficulty) => {
     switch (difficulty) { 
@@ -27,18 +29,23 @@ const Tasks = () => {
   };
 
      const fetchTodos = async () => {
+
       try {
         if (userId) {
           const response = await axios.get(`${API_URL}get/` + userId);
           setToDos(response.data);
+          const lengthT = localStorage.setItem('length', response.data.length)
         }
       } catch (err) {
         console.log(err);
       }
+
     };
 
   useEffect(() => {
+
     fetchTodos();
+    
   }, [userId]);
 
   const handleDelete = (id) => {
@@ -183,7 +190,7 @@ const Tasks = () => {
 
   return (
     <div className="wrapper">
-      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}   onAdd={toDo => setToDos(todos => [...todos, toDo])} />
+      <AddStack onTempAdd={tt => setTempTodos([...temTodos, tt])}   onAdd={toDo => setToDos(todos => [...todos, toDo])} addCount = {toDos.length}/>
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (

@@ -3,11 +3,11 @@ import {useState} from 'react';
 import {toast} from 'react-toastify'
 import axios from "axios"
 
-const AddStack = ({onTempAdd, onAdd}) => {
+const AddStack = ({onTempAdd, onAdd, addCount}) => {
     
-
   const [content, setContent] = useState('');
   const [difficulty, setDifficulty] = useState('Unclear')
+  const todosLength = localStorage.getItem('length')
   const difs = ["Unclear", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -23,15 +23,18 @@ const AddStack = ({onTempAdd, onAdd}) => {
 
         return;
         
+      }else if(addCount >= 15){
+
+        toast.warn('You gotta finish some work first before adding more, lad! ;)')
+        
+        return;
+        
       }else{
         axios.post(`${API_URL}add`, {content: content, difficulty: difficulty, userId})
         .then((res) => {
-
         if(onAdd) onAdd(res.data)
-
-    }).catch(err => console.log(err))
-    
-   }
+        }).catch(err => console.log(err)) 
+      }
 
    }else{
 
