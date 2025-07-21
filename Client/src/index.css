@@ -14,7 +14,7 @@ body {
 
 .header {
   padding: 10px 20px;
-  height: 80px;
+  height: 10vh;
   display: flex;
   text-align: center;
   justify-content: space-between;
@@ -108,7 +108,7 @@ body {
 
 .crud {
   width: 100%;
-  height: 90px;;
+  height: 8vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +121,7 @@ body {
   border-left: none;
   border-right: none;
   border-bottom: 2px solid black;
-  width: 800px;
+  width: 30%;
   background-color: transparent;
   color: black;
   outline: none;
@@ -167,7 +167,7 @@ input::placeholder {
 
 .quotes {
   width: 100%;
-  height: 100px;
+  height: 12.5vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +184,7 @@ input::placeholder {
 }
 
 .quote h1 {
-  font-size: 25px;
+  font-size: 2rem;
   font-weight: 400;
 }
 
@@ -195,7 +195,7 @@ input::placeholder {
 
 .toDoWrapper {
   position: relative;
-  height: 500px;
+  height: 50vh;
   display: flex;
   align-items: center;
   flex-wrap: nowrap; /* Allow items to wrap onto multiple lines */
@@ -208,7 +208,7 @@ input::placeholder {
 .toDoColor {
   min-width: 300px;
   max-width: 300px;
-  height: 460px;
+  height: 93%;
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -284,8 +284,8 @@ input::placeholder {
 
 .footer {
   width: 100%;
-  height: 100%;
-  padding: 10px 0px;
+  height: 10vh;
+  padding: 20px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,8 +302,9 @@ input::placeholder {
 }
 
 .footerWrapper img {
-  width: 90px;
-  height: 90px;
+  position: relative;
+  width: 75px;
+  height: 75px;
   cursor: pointer;
 }
 
@@ -375,8 +376,8 @@ input::placeholder {
 .sign .formContainer {
   background-color: yellow;
   opacity: 0.91;
-  width: 30%;
-  height: 70%;
+  width: 40%;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -401,8 +402,8 @@ input::placeholder {
 }
 
 .sign .formContainer .headerContainer img{
-    width: 45px;
-    height: 45px;
+    width: 4rem;
+    height: 4rem;
     background-color: transparent;
     transition: 0.5s;
 }
@@ -425,13 +426,13 @@ input::placeholder {
 .sign .formContainer form input {
   background-color: transparent;
   width: 70%;
-  height: 40px;
+  height: 10%;
   outline: none;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 2px solid black;
-  font-size: 30px;
+  font-size: 1rem;
 }
 
 .sign .submitButton {
@@ -452,7 +453,8 @@ input::placeholder {
 }
 
 .sign .formContainer .links a p {
-  font-size: 25px;
+  font-size: 1.7em;
+  height: 10px;
   color: black;
   border: none;
   outline: none;
@@ -460,6 +462,7 @@ input::placeholder {
 
 .sign .formContainer .links a p:hover {
   transition: 0.5s;
+  font-size: 1.8em;
   color: blue;
 }
 
@@ -484,10 +487,11 @@ input::placeholder {
 
   *{
     max-width: 100%;
+    max-height: 100vh;
   }
 
   .header {
-    height: 5rem;
+    height: 10vh;
     padding: 10px 0px;
 }
 
@@ -507,7 +511,7 @@ input::placeholder {
 }
 
 .quote h1 {
-  font-size: 17px;
+  font-size: 0.8rem;
 }
 
 .header .logo img {
@@ -522,12 +526,12 @@ input::placeholder {
 }
 
 .crud input[type="text"] {
-  width: 160px;
   height: 40px;
+  width: 45%;
 }
 
 #myPlaceholder::placeholder{
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .crud button {
@@ -541,15 +545,19 @@ input::placeholder {
   font-size: 18px;
 }
 
+.footer{
+  height: 10vh;
+}
+
 .footerWrapper img {
   width: 50px;
   height: 50px;
 }
 
 .toDoColor {
-  min-width: 130px;
-  max-width: 130px;
-  height: 200px;
+  min-width: 37%;
+  max-width: 37%;
+  height: 80%;
   border-radius: 10px;
 }
 
@@ -558,9 +566,8 @@ input::placeholder {
 }
 
 .toDoWrapper {
-
-  height: 100%;
   padding: 15px 10px;
+  height: 45vh;
   gap: 10px;
 
 }
@@ -581,6 +588,7 @@ input::placeholder {
 
 .quotes{
   min-width: 100%;
+  height: 10vh;
   padding: 10px 0px;
 }
 
@@ -625,7 +633,6 @@ input::placeholder {
 
 .crud button:hover {
   width: 75px;
-  height: 40px;
   font-size: 13px;
 
 }
@@ -636,7 +643,7 @@ input::placeholder {
 
 .crud {
 
-  height: 80px;
+  height: 10vh;
 
 }
 
@@ -645,8 +652,8 @@ input::placeholder {
 }
 
 .sign .formContainer {
-  width: 320px;
-  height: 500px;
+  width: 90%;
+  height: 85vh;
   border-radius: 15px;
 }
 
@@ -655,7 +662,7 @@ input::placeholder {
 }
 
 .sign .formContainer .links a p {
-  font-size: 20px;
+  font-size: 1.5em;
 }
 
 #mySecondPlaceholder::placeholder{
