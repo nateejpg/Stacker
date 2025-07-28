@@ -511,7 +511,7 @@ input::placeholder {
 }
 
 .quote h1 {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .header .logo img {
@@ -557,7 +557,7 @@ input::placeholder {
 .toDoColor {
   min-width: 37%;
   max-width: 37%;
-  height: 70%;
+  height: 78%;
   border-radius: 10px;
 }
 
@@ -567,7 +567,7 @@ input::placeholder {
 
 .toDoWrapper {
   padding: 1px 10px;
-  height: 45vh;
+  height: 38vh;
   gap: 10px;
 
 }
@@ -583,13 +583,13 @@ input::placeholder {
 }
 
 .quote {
-  padding: 0px 20px;
+  padding: 0px 5px;
 }
 
 .quotes{
   min-width: 100%;
-  height: 10vh;
-  padding: 10px 0px;
+  height: 14vh;
+  padding: 5px 0px;
 }
 
 
@@ -643,7 +643,7 @@ input::placeholder {
 
 .crud {
 
-  height: 10vh;
+  height: 14vh;
 
 }
 
@@ -653,7 +653,7 @@ input::placeholder {
 
 .sign .formContainer {
   width: 90%;
-  height: 85vh;
+  height: 70vh;
   border-radius: 15px;
 }
 
