@@ -36,7 +36,7 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
 
      if(userId){
 
-     axios.post(`${API_URL}habits`, {title: title, difficulty: difficulty, counter: 0})
+     axios.post(`${API_URL}/habits`, {title: title, difficulty: difficulty, counter: 0})
      .then((res) => {
       if(onAddHabit) onAddHabit(res.data)
      })
@@ -65,7 +65,11 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
     
     <div>
       <div className="addHabit">
-          <input type="text" placeholder="Enter your habit:" onChange={((e) => setTitle(e.target.value))} value={title}></input>
+          <input type="text" placeholder="Enter your habit:" 
+          onChange={((e) => setTitle(e.target.value))} 
+          value={title}
+          maxLength={60}
+          ></input>
           <select value={difficulty} onChange={handleSelectDifficulty}>Select Difficulty
           <option value={"gray"}>Default</option>
           <option value={"rgb(244, 29, 29)"}>Hard</option>
