@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const habitSchema = mongoose.Schema({
-    content: String,
+    title: String,
     difficulty: String,
     counter: {type: Number, default: 0.0},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'users'}
