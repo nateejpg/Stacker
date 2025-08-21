@@ -134,7 +134,7 @@ app.delete("/habits/delete/:id", async(req, res) => {
 
 })
 
-app.listen( 3001, () => {
+app.listen(3001, () => {
 
 console.log('The app is listening on 3001')
 
