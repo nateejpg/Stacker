@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const StackerModel = require('./stacks')
 const UserModel = require('./User')
+const habitModel = require('./habits')
 require('dotenv').config();
 
 const app = express()
@@ -99,6 +100,37 @@ app.post('/login', async (req, res) => {
     }else{
         res.json({success: false})
     }
+
+})
+
+// Habits Methods
+
+app.post('/habits', async (req, res) => {
+
+    const title = req.body.title;
+    const difficulty = req.body.difficulty;
+    const counter = req.body.counter;
+
+    habitModel.create({
+        title: title,
+        difficulty: difficulty,
+        counter: counter,
+    })
+    .then(result => res.json(result))
+    .catch(err => console.log(err));
+
+})
+
+
+app.delete("/habits/delete/:id", async(req, res) => {
+
+    const {id} = req.params;
+
+    habitModel.delete({
+        _id: id
+    })
+    .then(result => result.json(result))
+    .catch(err => console.log(err));
 
 })
 

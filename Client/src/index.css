@@ -71,12 +71,12 @@ body {
   width: 60px;
   height: 60px;
   cursor: pointer;
+  transition: 0.7s;
 }
 
 .header .logo img:hover {
   width: 75px;
   height: 75px;
-  transition: 0.7s;
 }
 
 .header .login {
@@ -88,12 +88,12 @@ body {
   height: 65px;
   background-color: transparent;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .header .login img:hover {
   width: 75px;
   height: 75px;
-  transition: 0.5s;
 }
 
 .header .login button{
@@ -108,7 +108,7 @@ body {
 
 .crud {
   width: 100%;
-  height: 8vh;
+  height: 6vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,12 +150,12 @@ body {
   font-weight: 400;
   background-color: rgb(37, 36, 36);
   color: white;
+  transition: 0.5s;
 }
 
 .crud button:hover {
   height: 60px;
   font-size: 25px;
-  transition: 0.5s;
   cursor: pointer;
   font-weight: 490;
 }
@@ -184,7 +184,7 @@ input::placeholder {
 }
 
 .quote h1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 400;
 }
 
@@ -195,7 +195,7 @@ input::placeholder {
 
 .toDoWrapper {
   position: relative;
-  height: 50vh;
+  height: 55vh;
   display: flex;
   align-items: center;
   flex-wrap: nowrap; /* Allow items to wrap onto multiple lines */
@@ -284,8 +284,8 @@ input::placeholder {
 
 .footer {
   width: 100%;
-  height: 10vh;
-  padding: 20px 0px;
+  height: 12vh;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -409,8 +409,8 @@ input::placeholder {
 }
 
 .sign .formContainer .headerContainer img:hover{
-    width: 50px;
-    height: 50px;
+    width: 5rem;
+    height: 5rem;
 }
 
 .sign .formContainer form {
@@ -432,7 +432,7 @@ input::placeholder {
   border-left: none;
   border-right: none;
   border-bottom: 2px solid black;
-  font-size: 1rem;
+  font-size: 1.7rem;
 }
 
 .sign .submitButton {
@@ -443,13 +443,13 @@ input::placeholder {
   border-radius: 5px;
   font-size: 30px;
   background: transparent;
+  transition: 0.5s;
 }
 
 .sign .submitButton:hover {
   background-color: black;
   color: white;
   width: 350px;
-  transition: 0.5s;
 }
 
 .sign .formContainer .links a p {
@@ -458,10 +458,11 @@ input::placeholder {
   color: black;
   border: none;
   outline: none;
+  transition: 0.5s;
+
 }
 
 .sign .formContainer .links a p:hover {
-  transition: 0.5s;
   font-size: 1.8em;
   color: blue;
 }
@@ -479,11 +480,171 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
+
+}
+
+.habitWindow{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 75.6vh;
 }
 
 
-@media (max-width: 992px){
+.addHabit{
+  display: flex;
+  font-size: 40px;
+  width: 70vw;
+  height: 12vh;
+  align-items: center;
+  text-align: center;
+  gap: 0.8rem;
+}
 
+.addHabit button{
+  border: 1px black solid;
+  outline: none;
+  background-color: transparent;
+  font-size: 20px;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  font-weight: 400;
+  background-color: rgb(37, 36, 36);
+  color: white;
+  transition: 0.5s;
+}
+
+.addHabit button:hover{
+  height: 60px;
+  font-size: 25px;
+  cursor: pointer;
+  font-weight: 490;
+}
+
+.addHabit select{
+  border: 1px black solid;
+  outline: none;
+  background-color: transparent;
+  font-size: 25px;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addHabit input[type = "text"]{
+  width: 90%;
+  height: 30px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  outline: none;
+  font-size: 25px;
+  border-bottom: 0.15rem black solid;
+  padding: 5px;
+}
+
+.habitSection{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 2px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+
+.habit{
+  font-size: 2rem;
+  height: 12vh;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  transition: 0.5s;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.habit:hover{
+  font-size: 2rem;
+  height: 13vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 97%; 
+  font-size: 2.3rem;
+}
+
+.hidden{
+  display: none;
+}
+
+.menu{
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.menuHeader{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  height: 10vh;
+  width: 100%;
+}
+
+.menuClose{
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 3rem;
+  margin-top: 1.5rem;
+
+}
+
+.menuClose img{
+  height: 50px;
+  width: 50px;
+}
+
+
+.menuItens{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  height: 90vh;
+  gap: 25px;
+}
+
+.menuItens button{
+  font-size: 5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+
+.menuItens button:hover{
+  font-size: 5.3rem;
+}
+
+@media (max-width: 992px){
 
   *{
     max-width: 100%;
@@ -546,7 +707,7 @@ input::placeholder {
 }
 
 .footer{
-  height: 10vh;
+  height: 13vh;
 }
 
 .footerWrapper img {
@@ -633,6 +794,7 @@ input::placeholder {
 
 .crud button:hover {
   width: 75px;
+  height: 50px;
   font-size: 13px;
 
 }
@@ -662,7 +824,7 @@ input::placeholder {
 }
 
 .sign .formContainer .links a p {
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 #mySecondPlaceholder::placeholder{
@@ -676,9 +838,10 @@ input::placeholder {
 }
 
 .sign .formContainer .headerContainer .imageContainer img{
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   background-color: transparent;
+  transition: 0.5s;
 }
 
 .sign .formContainer .headerContainer .imageContainer img:hover{
@@ -690,6 +853,7 @@ input::placeholder {
   width: 80px;
   text-align: center;
   font-size: 13px;
+  padding: 0px 5px;
   font-weight: 100;
 }
 
@@ -702,6 +866,7 @@ input::placeholder {
   width: 40%;
   height: 13%;
   font-size: 20px;
+  transition: 0.5s;
 }
 
 .sign .submitButton:hover{
@@ -727,6 +892,72 @@ input::placeholder {
 .header .logo img:hover{
   width: 40px;
   height: 40px;
+}
+
+.habitWindow{
+  height: 72.5vh;
+  width: 100%;
+}
+
+
+.menuItens button{
+    font-size: 3rem;
+} 
+.menuItens button:hover{
+    font-size: 3.5rem;
+} 
+
+.menuClose img{
+  width: 2rem;
+  height: 2rem;
+}
+
+.menuClose img:hover{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.addHabit{
+  width: 100%;
+  height: 11vh;
+  gap: 0.3rem;
+}
+
+
+.addHabit select{
+  font-size: 15px;
+  height: 31.5px;
+  width: 5.5rem;
+}
+
+
+.addHabit input[type = "text"]{
+  position: relative;
+  width: 50vw;
+  height: 20px;
+}
+
+
+.addHabit button{
+  width: 4rem;
+  height: 5vh;
+  font-size: 1rem;
+  margin: 0;
+}
+.addHabit button:hover{
+  width: 4.2rem;
+  height: 5.2vh;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.habit{
+  width: 70%;
+  font-size: 1.2rem;
+}
+.habit:hover{
+  width: 85%;
+  font-size: 1.3rem;
 }
 
 }

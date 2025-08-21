@@ -2,9 +2,13 @@ import React from "react";
 import Footer from "./Footer";
 import todo1 from "../images/todo1.png";
 import login from "../images/login.png";
+import Menu from "../Components/Menu"
+import menuImage from "../images/menu.png"
 import Tasks from "../Components/Tasks"
+import Hwindow from "../Components/Hwindow"
 import logout from "../images/logout.png"
 import { useState, useEffect } from "react";
+import {toast} from "react-toastify"
 import { Link } from "react-router-dom";
 import quotesData from "../quotes.json"
 
@@ -13,7 +17,9 @@ const Main = () => {
   const getUser = window.localStorage.getItem("username");
   const getId = window.localStorage.getItem('userId');
 
-  
+  const [hidden, setHidden] = useState(true);
+  const [hidden2, setHidden2] = useState(false)
+
   const getRandomQuotes = () => {
 
     const randomIndex = Math.floor(Math.random() * quotesData.length);
@@ -60,23 +66,58 @@ const Main = () => {
     
   }
 
-  const reload = () => {
+  const showWindow = () => {
+
+    if(hidden == true){
+
+      setHidden(false);
+
+    }else{
+
+      setHidden(true);
+    }
+
+    setHidden2(false);
+
+  }
+
+
+  const handleReload = () => {
 
     window.location.reload();
 
   }
 
-  return (
-    <div className="wrapper">
+
+  const handleMenu = () => {
+
+    if(hidden2 == true){
+
+      setHidden2(false);
+
+    }else{
+
+      setHidden2(true);
+    }
+
+  }
+
+  return hidden2 ? (<Menu onClose={setHidden2} onLogOut={logOut} onShowWindows={showWindow}/>) : <div className="wrapper">
       <div className="header">
        <div className="head01">
-        {getId ? <h1>Hello <span>{getUser}</span>!</h1> : <a className="logo" onClick={reload}>
+        {getId ? (
+        <>
+          <h1>Hello, {getUser}!</h1>
+        </>
+        ): 
+        <a className="logo" onClick={handleReload}>
           <img src={todo1}></img>
-        </a>}
+        </a>
+        }
         </div>
         <div className="head02"><h1>Stacker</h1></div>
        <div className="head03"> 
-        { getId ? (<a className="login"><button onClick={logOut}><img src={logout}></img></button></a>) : (
+        { getId ? (<a className="login"><button onClick={handleMenu}><img src={menuImage}></img></button></a>) : (
         <a className="login">
           <Link to={"/SignIn"}>
             <img src={login}></img>
@@ -84,16 +125,18 @@ const Main = () => {
         </a>)}
         </div>
       </div>
-      <div className="quotes">
+      <div className={hidden ? "quotes" : 'hidden'}>
           <div className="quote">
             <h1>{quotes && quotes.text}</h1>
             <h2>{quotes && quotes.author}</h2>
           </div>
       </div>
-      <Tasks/>
+      {
+        hidden ? <Tasks/> : <Hwindow/>
+        }
       <Footer />
-    </div>
-  );
-};
+    </div>}
+  ;
+;
 
 export default Main;

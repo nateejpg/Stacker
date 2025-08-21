@@ -8,7 +8,7 @@ const AddStack = ({onTempAdd, onAdd, addCount}) => {
   const [content, setContent] = useState('');
   const [difficulty, setDifficulty] = useState('Unclear')
   const todosLength = localStorage.getItem('length')
-  const difs = ["Unclear", "Hard", "Moderate", "Easy"]
+  const difs = ["Default", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleAdd = () => {
