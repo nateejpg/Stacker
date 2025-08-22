@@ -562,27 +562,63 @@ input::placeholder {
 
 
 .habit{
-  font-size: 2rem;
+  font-size: 3rem;
   height: 12vh;
   width: 80%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-around;
   transition: 0.5s;
   cursor: pointer;
   border-radius: 10px;
 }
 
 .habit:hover{
-  font-size: 2rem;
+  font-size: 3.2rem;
   height: 13vh;
+  display: flex;
+  gap: 30px;
+  width: 97%; 
+  font-size: 3.2;
+}
+
+.habit img{
+  width: 5.5vh;
+  height: 5.5vh;
+  background-color: transparent;
+}
+
+.habit .title{
+  height: 100%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.habit .counter{
+  display: flex;
   gap: 30px;
-  width: 97%; 
-  font-size: 2.3rem;
+  text-align: center;
+  align-items: center;
+  left: 1px;
+  height: 100%;
+}
+
+.habit .buttons{
+  display: flex;
+  gap: 30px;
+  height: 100%;
+
+}
+
+
+.habit button{
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  right: 1px;
 }
 
 .hidden{
@@ -637,6 +673,7 @@ input::placeholder {
   border: none;
   cursor: pointer;
   transition: 0.5s;
+  z-index: 10000;
 }
 
 

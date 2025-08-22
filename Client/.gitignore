@@ -11,6 +11,12 @@
 # production
 /build
 
+# env files
+.env
+.env.development
+.env.production
+.env.test
+
 # misc
 .DS_Store
 .env.local

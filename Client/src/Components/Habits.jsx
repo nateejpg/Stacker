@@ -36,7 +36,7 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
 
      if(userId){
 
-     axios.post(`${API_URL}habits`, {title: title, difficulty: difficulty, counter: 0})
+     axios.post(`${API_URL}habits`, {title: title, difficulty: difficulty, counter: 0, user: userId})
      .then((res) => {
       if(onAddHabit) onAddHabit(res.data)
      })
