@@ -110,11 +110,13 @@ app.post('/habits', async (req, res) => {
     const title = req.body.title;
     const difficulty = req.body.difficulty;
     const counter = req.body.counter;
+    const userId = req.body.user; 
 
     habitModel.create({
         title: title,
         difficulty: difficulty,
         counter: counter,
+        user: userId
     })
     .then(result => res.json(result))
     .catch(err => console.log(err));
@@ -126,15 +128,26 @@ app.delete("/habits/delete/:id", async(req, res) => {
 
     const {id} = req.params;
 
-    habitModel.delete({
+    habitModel.findOneAndDelete({
         _id: id
     })
-    .then(result => result.json(result))
+    .then(result => res.json(result))
     .catch(err => console.log(err));
 
 })
 
-app.listen(3001, () => {
+app.get('/geth/:userId', (req, res) => {
+    habitModel.find({
+        user: req.params.userId,
+    })
+    .then(result => res.json(result))
+    .catch(err => res.status(500).json({error: err.message}))
+})
+
+
+// PORT
+
+app.listen( 3001, () => {
 
 console.log('The app is listening on 3001')
 
