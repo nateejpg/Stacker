@@ -6,7 +6,7 @@ import axios from 'axios';
 const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
 
   const [title, setTitle] = useState("");
-  const [difficulty , setDifficulty] = useState("gray");
+  const [difficulty , setDifficulty] = useState("lightgray");
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleSelectDifficulty = (e) => {
@@ -44,17 +44,13 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
 
      }else{
 
-      if(onTempAddHabit){
-        onTempAddHabit({
-          title: title,
-          difficulty: difficulty,
-        })
-      }
-    
+      toast.warn("Create an account to use this feature!")
+      setTitle("");
+      return;
     }
 
     setTitle("");
-    setDifficulty("gray");
+    setDifficulty("lightgray");
 
   }
     }
@@ -71,7 +67,7 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
           maxLength={60}
           ></input>
           <select value={difficulty} onChange={handleSelectDifficulty}>Select Difficulty
-          <option value={"gray"}>Default</option>
+          <option value={"lightgray"}>Default</option>
           <option value={"rgb(244, 29, 29)"}>Hard</option>
           <option value={"yellow"}>Moderate</option>
           <option value={"lightgreen"}>Easy</option>

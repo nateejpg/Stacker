@@ -2,6 +2,7 @@ import React from 'react'
 import x from "../images/xIcon.png"
 
 const Menu = ({onClose, onLogOut, onShowWindows}) => {
+
   return (
     <div className="menu">
         <div className="menuHeader">
@@ -10,10 +11,14 @@ const Menu = ({onClose, onLogOut, onShowWindows}) => {
             </button>
         </div>
        <div className="menuItens">
-         <button onClick={onShowWindows}>Stacks</button>
-         <button onClick={onShowWindows}>Habits</button>
-         <button>Settings</button>
-         <button>Graphs</button>
+         <button onClick={() => {
+          onShowWindows(true);
+          onClose(false);
+         }}>Stacks</button>
+         <button onClick={() => {
+          onShowWindows(false);
+          onClose(false);
+         }}>Habits</button>
         <button onClick={onLogOut}>Logout</button>
        </div>
     </div>

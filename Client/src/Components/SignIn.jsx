@@ -27,11 +27,16 @@ const SignIn = () => {
 
     e.preventDefault();
 
-   if(email.length === 0){
+   if(email.length < 9){
 
     toast.error('Add a valid email!');
+    return;
 
-   }else{
+   }else if(password.length < 6){
+    
+    toast.error("Add a valid password!");
+
+  }else{
      axios.post(`${API_URL}login`, { email, password})
     .then(res => {
       

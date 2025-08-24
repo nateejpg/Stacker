@@ -23,8 +23,8 @@ const Tasks = () => {
       case "Hard": return "rgb(245, 29, 29)";
       case "Moderate": return "yellow";
       case "Easy": return "lightgreen";
-      case "Default": return "gray";
-      default: return "gray";
+      case "Done": return "gray";
+      default: return "lightgray";
     }
   };
 

@@ -219,6 +219,13 @@ input::placeholder {
   padding: 20px;
   box-shadow: 10px 8px 10px 5px rgb(198, 198, 198);
   opacity: 0.95;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.toDoColor:hover{
+  min-width: 310px;
+  max-width: 310px;
 }
 
 .toDoColor .toDoBtnEdit button img {
@@ -303,8 +310,8 @@ input::placeholder {
 
 .footerWrapper img {
   position: relative;
-  width: 75px;
-  height: 75px;
+  width: 65px;
+  height: 65px;
   cursor: pointer;
 }
 
@@ -485,8 +492,8 @@ input::placeholder {
 
 .habitWindow{
   display: flex;
+  position: relative;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: 100%;
   padding: 0;
@@ -548,7 +555,7 @@ input::placeholder {
   padding: 5px;
 }
 
-.habitSection{
+.habitMockSection{
   position: relative;
   width: 100%;
   display: flex;
@@ -560,6 +567,15 @@ input::placeholder {
   cursor: pointer;
 }
 
+.habitList{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  align-items: center;
+}
+
 
 .habit{
   font-size: 3rem;
@@ -568,17 +584,16 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  transition: 0.5s;
+  transition: 0.3s;
   cursor: pointer;
   border-radius: 10px;
 }
 
 .habit:hover{
-  font-size: 3.2rem;
   height: 13vh;
   display: flex;
   gap: 30px;
-  width: 97%; 
+  width: 85%; 
   font-size: 3.2;
 }
 
@@ -586,32 +601,51 @@ input::placeholder {
   width: 5.5vh;
   height: 5.5vh;
   background-color: transparent;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.habit img:hover{
+  width: 5.8vh;
+  height: 5.8vh;
+  
 }
 
 .habit .title{
   height: 100%;
-  width: 70%;
+  width: 75%;
+  text-align: center;
   display: flex;
   align-items: center;
+  font-size: 2.9rem;
   justify-content: center;
 }
 
 .habit .counter{
   display: flex;
-  gap: 30px;
+  gap: 15px;
   text-align: center;
   align-items: center;
-  left: 1px;
+  width: 25%;
+  justify-content: left;
+  padding-left: 1rem;
   height: 100%;
+}
+
+.habit .counter p{
+  font-size: 2rem;
 }
 
 .habit .buttons{
   display: flex;
   gap: 30px;
+  width: 25%;
+  justify-content: right;
+  padding-right: 1rem;
+  align-items: center;
   height: 100%;
 
 }
-
 
 .habit button{
   position: relative;
@@ -619,6 +653,17 @@ input::placeholder {
   border: none;
   cursor: pointer;
   right: 1px;
+}
+
+.counter input{
+  width: 40%;
+  height: 50%;
+  background-color: white;
+  align-items: center;
+  text-align: center;
+  font-size: 30px;
+  border: none;
+  border-radius: 3px;
 }
 
 .hidden{

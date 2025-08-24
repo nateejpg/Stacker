@@ -123,7 +123,6 @@ app.post('/habits', async (req, res) => {
 
 })
 
-
 app.delete("/habits/delete/:id", async(req, res) => {
 
     const {id} = req.params;
@@ -144,6 +143,56 @@ app.get('/geth/:userId', (req, res) => {
     .catch(err => res.status(500).json({error: err.message}))
 })
 
+
+app.put("/habits/updateCounter/:id", async (req, res) => {
+
+    const {id} = req.params;
+    const counter = req.body.counter;
+
+    habitModel.findOneAndUpdate(
+        {_id: id},
+        {counter: counter},
+        {new: true}
+    )
+    .then(result => res.json(result))
+    .catch(err => err.json())
+})
+
+// DELETE ALL
+
+app.delete("/deleteAllUsers", async (req, res) => {
+  try {
+
+    await StackerModel.deleteMany({});
+    await habitModel.deleteMany({});
+    await UserModel.deleteMany({});
+    
+    res.json({ success: true, message: "All users, tasks, and habits have been deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Delete USER and Respectives
+
+app.delete("/deleteUser/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Deleta o usuário
+    const user = await UserModel.findOneAndDelete({ _id: id });
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    await StackerModel.deleteMany({ user: id });
+    await habitModel.deleteMany({ user: id });
+
+    res.json({ success: true, message: "User and all related tasks & habits deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 // PORT
 

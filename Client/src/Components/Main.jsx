@@ -17,7 +17,19 @@ const Main = () => {
   const getUser = window.localStorage.getItem("username");
   const getId = window.localStorage.getItem('userId');
 
-  const [hidden, setHidden] = useState(true);
+  const [hidden, setHidden] = useState(() => {
+    const saved = window.localStorage.getItem("hidden");
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+
+  const toggleHidden = (value) => {
+    setHidden(prev => {
+    const newState = value !== undefined ? value : !prev;
+      window.localStorage.setItem("hidden", JSON.stringify(newState));
+      return newState
+    })
+  }
+
   const [hidden2, setHidden2] = useState(false)
 
   const getRandomQuotes = () => {
@@ -66,29 +78,6 @@ const Main = () => {
     
   }
 
-  const showWindow = () => {
-
-    if(hidden == true){
-
-      setHidden(false);
-
-    }else{
-
-      setHidden(true);
-    }
-
-    setHidden2(false);
-
-  }
-
-
-  const handleReload = () => {
-
-    window.location.reload();
-
-  }
-
-
   const handleMenu = () => {
 
     if(hidden2 == true){
@@ -102,15 +91,15 @@ const Main = () => {
 
   }
 
-  return hidden2 ? (<Menu onClose={setHidden2} onLogOut={logOut} onShowWindows={showWindow}/>) : <div className="wrapper">
+  return hidden2 ? (<Menu onClose={setHidden2} onLogOut={logOut} onShowWindows={toggleHidden}/>) : <div className="wrapper">
       <div className="header">
        <div className="head01">
         {getId ? (
         <>
-          <h1>Hello, {getUser}!</h1>
+          <h1>Hello, <span>{getUser}!</span></h1>
         </>
         ): 
-        <a className="logo" onClick={handleReload}>
+        <a className="logo" onClick={() => toggleHidden()}>
           <img src={todo1}></img>
         </a>
         }
