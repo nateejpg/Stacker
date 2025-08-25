@@ -10,6 +10,7 @@ const Hwindow = () => {
   const [tempHabits, setTempsHabits] = useState([]);
   const [habits, setHabits] = useState([]);
   const [avColor, setAvColor] = useState("");
+  const [editId, setEditId] = useState(null)
   const [word, setWord] = useState("minutes")
   const [editCounter, setEditCounter] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL;
@@ -69,6 +70,17 @@ const handleFetch = async () => {
     setEditCounter(null);
   };
 
+  const handleEdit = (id) => {
+
+    setEditId(id)
+
+  }
+
+
+  const handleEditNull = () => {
+    setEditId(null)
+  }
+
   useEffect(() => {
     handleFetch();
   }, [userId]);
@@ -109,14 +121,21 @@ const handleFetch = async () => {
                   <p>{formatCounter(h.counter)}</p>
                 </div>
               )}
-              <div className="title">{h.title}</div>
+              {editId === h._id ? 
+              <div>
+                  <input></input>  
+              </div> : <div className="title">{h.title}</div>}
               <div className="buttons">
                 <button onClick={() => handleDelete(h._id)}>
                   <img src={trash} alt="delete" />
                 </button>
-                <button>
+                {editId === h._id ? 
+              <button onClick = {handleEdit}>
                   <img src={edit} alt="edit" />
-                </button>
+                </button> :
+                 <button onClick = {() => handleEdit(h._id)}>
+                  <img src={edit} alt="edit" />
+                </button>}
               </div>
             </div>
           ))}
