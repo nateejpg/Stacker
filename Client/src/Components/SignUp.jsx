@@ -103,7 +103,7 @@ const SignUp = () => {
         </form>
         <div className="links">
           <Link to={"/signIn"} style={{border: "none", textDecoration: "none", fontStyle: "bold", fontWeight: "900"}}>
-            <p>Already have an account?</p>
+            <p>Need an account?</p>
           </Link>
         </div>
       </div>
