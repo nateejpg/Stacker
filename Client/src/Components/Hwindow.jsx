@@ -195,19 +195,19 @@ const handleFetch = async () => {
         </div>
       ) : (
         <div className="habitMockSection">
-          <div className="habit" style={{ background: "rgb(244, 29, 29)" }}>
+          <div className="habit" style={{ background: "rgb(244, 29, 29)" }} onMouseEnter={hoverSoundPlay}>
             Practice coding for 1 hour 💻
           </div>
-          <div className="habit" style={{ background: "yellow" }}>
+          <div className="habit" style={{ background: "yellow" }} onMouseEnter={hoverSoundPlay}>
             Faire du sport trois fois par semaine 🏃‍♂️
           </div>
-          <div className="habit" style={{ background: "lightgreen" }}>
+          <div className="habit" style={{ background: "lightgreen" }} onMouseEnter={hoverSoundPlay}>
             1日1回日本語で日記を書く ✍️
           </div>
-          <div className="habit" style={{ background: "yellow" }}>
+          <div className="habit" style={{ background: "yellow" }} onMouseEnter={hoverSoundPlay}>
             Praticar violão todos os dias 🎸
           </div>
-          <div className="habit" style={{ background: "lightgreen" }}>
+          <div className="habit" style={{ background: "lightgreen" }} onMouseEnter={hoverSoundPlay}>
             Täglich Vokabeln lernen 📚
           </div>
         </div>
