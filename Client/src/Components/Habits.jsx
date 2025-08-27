@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios';
+import addSound from "../sounds/Click.wav"
 
-const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
+const Habits = ({onColorChange, onTempLength, onAddHabit}) => {
 
   const [title, setTitle] = useState("");
   const [difficulty , setDifficulty] = useState("lightgray");
@@ -54,6 +55,18 @@ const Habits = ({onColorChange, onTempAddHabit, onTempLength, onAddHabit}) => {
 
   }
     }
+
+
+    const Sound = new Audio(addSound);
+
+    const playSound = () => {
+      Sound.currentTime = 0;
+      Sound.volume = 0.5
+      Sound.play();
+    }
+
+
+    playSound();
 
   }
 

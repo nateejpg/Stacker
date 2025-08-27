@@ -4,14 +4,18 @@ import axios from "axios";
 import Treated from "./Treated";
 import trash from "../images/trashbin.png";
 import edit from "../images/pen.png";
+import done from "../images/done.png"
+import hover from "../sounds/Parsed.mp3"
 import editTimer from "../images/edit.png";
+import congratz from "../sounds/congratz.wav"
 
 const Hwindow = () => {
   const [tempHabits, setTempsHabits] = useState([]);
   const [habits, setHabits] = useState([]);
-  const [avColor, setAvColor] = useState("");
+  const [avColor, setAvColor] = useState("lightgray");
   const [editId, setEditId] = useState(null)
-  const [word, setWord] = useState("minutes")
+  const [editTitle, setEditTitle] = useState("Don't leave me empty! ;)");
+  const [editDifficulty, setEditDifficulty] = useState("lightgray");
   const [editCounter, setEditCounter] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL;
   const userId = localStorage.getItem("userId");
@@ -41,6 +45,23 @@ const formatCounter = (counter) => {
 };
 
 
+const handleUpdate = (id) => {
+
+axios.put(`${API_URL}habits/update/` + id, {title: editTitle, difficulty: editDifficulty})
+.then(() => {
+    setHabits(prev => 
+      prev.map(habit => 
+        habit._id === id
+        ? {...habit, title: editTitle, difficulty: editDifficulty}
+        : habit
+      )
+    );
+    setEditTitle("Don't leave me empty! ;)");
+    setEditDifficulty("lightgray");
+    setEditId(null)
+})
+.catch(err => console.log(err))
+}
 
 const handleFetch = async () => {
   try {
@@ -62,24 +83,43 @@ const handleFetch = async () => {
   }
 };
 
+  const congratzSound = new Audio(congratz)
+
+  const playCongrats = () => {
+    congratzSound.currentTime = 0;
+    congratzSound.play();
+  }
+
   const handleEditInputOn = (id) => {
     setEditCounter(id);
   };
 
   const handleEditInputOff = () => {
     setEditCounter(null);
+    playCongrats();
+
   };
 
   const handleEdit = (id) => {
+
+    setEditId(null)
+
+  }
+
+  const handleEditOff = (id) => {
 
     setEditId(id)
 
   }
 
+  const hoverSound = new Audio(hover);
 
-  const handleEditNull = () => {
-    setEditId(null)
+  const hoverSoundPlay = () => {
+    hoverSound.currentTime = 0; // reinicia se já estiver tocando
+    hoverSound.volume = 0.1
+    hoverSound.play();
   }
+
 
   useEffect(() => {
     handleFetch();
@@ -90,13 +130,13 @@ const handleFetch = async () => {
       <Habits
         onColorChange={setAvColor}
         onTempAddHabit={(th) => setTempsHabits([...tempHabits, th])}
-        onTempLength={tempHabits.length}
+        onTempLength={habits.length}
         onAddHabit={(adh) => setHabits([...habits, adh])}
       />
       {userId && habits.length > 0 ? (
         <div className="habitList">
           {habits.map((h) => (
-            <div key={h._id} className="habit" style={{ background: h.difficulty }}>
+            <div key={h._id} className="habit" style={{ background: h.difficulty }} onMouseEnter={hoverSoundPlay}>
               {editCounter === h._id ? (
                 <Treated
                   counter={h.counter}
@@ -122,18 +162,31 @@ const handleFetch = async () => {
                 </div>
               )}
               {editId === h._id ? 
-              <div>
-                  <input></input>  
+              <div className="editHabit">
+                <div className="editHabitBox01">
+                <input type="text" placeholder="Edit your habit:" onChange={e => setEditTitle(e.target.value)}></input>
+                </div>
+              <div className="editHabitBox02">
+                <select value={editDifficulty} onChange={e => setEditDifficulty(e.target.value)}>Select Difficulty
+                <option value={"lightgray"}>Default</option>
+                <option value={"rgb(244, 29, 29)"}>Hard</option>
+                <option value={"yellow"}>Moderate</option>
+                <option value={"lightgreen"}>Easy</option>
+              </select>
+                <button onClick = {() => handleUpdate(h._id)}>
+                  <img src={done} alt="edit" />
+                </button>
+              </div>
               </div> : <div className="title">{h.title}</div>}
               <div className="buttons">
                 <button onClick={() => handleDelete(h._id)}>
                   <img src={trash} alt="delete" />
                 </button>
                 {editId === h._id ? 
-              <button onClick = {handleEdit}>
+              <button onClick = {() => handleEdit(h._id)}>
                   <img src={edit} alt="edit" />
                 </button> :
-                 <button onClick = {() => handleEdit(h._id)}>
+                 <button onClick = {() => handleEditOff(h._id)}>
                   <img src={edit} alt="edit" />
                 </button>}
               </div>

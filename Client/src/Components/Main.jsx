@@ -96,7 +96,7 @@ const Main = () => {
        <div className="head01">
         {getId ? (
         <>
-          <h1>Hello, <span>{getUser}!</span></h1>
+          <a onClick={() => toggleHidden()}><h1>Hello, <span>{getUser}!</span></h1></a>
         </>
         ): 
         <a className="logo" onClick={() => toggleHidden()}>
