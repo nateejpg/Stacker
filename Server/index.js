@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const StackerModel = require('./stacks')
 const UserModel = require('./User')
 const habitModel = require('./habits')
-require('dotenv').config();
+require('dotenv').config({ path: '.env.development' });
 
 const app = express()
 
