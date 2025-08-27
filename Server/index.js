@@ -158,6 +158,21 @@ app.put("/habits/updateCounter/:id", async (req, res) => {
     .catch(err => err.json())
 })
 
+app.put("/habits/update/:id", async(req, res) => {
+
+    const {id} = req.params;
+    const title = req.body.title;
+    const difficulty = req.body.difficulty;
+
+    habitModel.findOneAndUpdate(
+        {_id: id},
+        {title: title, difficulty: difficulty},
+        {new: true}
+    ).then(result => res.json(result))
+    .catch(err => console.log(err));
+
+})
+
 // DELETE ALL
 
 app.delete("/deleteAllUsers", async (req, res) => {
