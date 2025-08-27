@@ -982,6 +982,11 @@ input::placeholder {
   font-size: 1.3em;
 }
 
+.sign .formContainer .links a p:hover {
+  font-size: 1.4em;
+  color: blue;
+}
+
 #mySecondPlaceholder::placeholder{
   font-size: 20px;
 }
