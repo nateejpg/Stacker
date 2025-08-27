@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AddStack from "./AddStack";
 import done from "../images/done.png";
+import todoDone from "../images/tododone.png"
 import trash from "../images/trashbin.png";
 import edit from "../images/edit.png";
 import axios from "axios";
+import hover from "../sounds/Parsed.mp3"
+import congratz from "../sounds/congratz.wav"
 
 const Tasks = () => {
   const [toDos, setToDos] = useState([]);
@@ -15,16 +18,13 @@ const Tasks = () => {
   const userId = window.localStorage.getItem("userId");
   const API_URL = process.env.REACT_APP_API_URL;
 
-  console.log(toDos)
-
-
   const getColor = (difficulty) => {
     switch (difficulty) { 
       case "Hard": return "rgb(245, 29, 29)";
       case "Moderate": return "yellow";
       case "Easy": return "lightgreen";
-      case "Unclear": return "gray";
-      default: return "gray";
+      case "Done": return "gray";
+      default: return "lightgray";
     }
   };
 
@@ -105,11 +105,44 @@ const Tasks = () => {
     setEditingTempIndex(null);
   };
 
+  const handleDone = (id, currentDifficulty) => {
+  const newDifficulty = currentDifficulty === "Done" ? "Easy" : "Done";
+  
+  axios.put(`${API_URL}update/` + id, { difficulty: newDifficulty })
+    .then(() => {
+      setToDos(prev =>
+        prev.map(todo =>
+          todo._id === id ? { ...todo, difficulty: newDifficulty } : todo
+        )
+      );
+    })
+    .catch(err => console.log(err));
+
+    const congratzSound = new Audio(congratz)
+  
+    const playCongrats = () => {
+      congratzSound.currentTime = 0;
+      congratzSound.play();
+    }
+
+    playCongrats();
+};
+
+const hoverSound = new Audio(hover);
+
+  const hoverSoundPlay = () => {
+    hoverSound.currentTime = 0; // reinicia se já estiver tocando
+    hoverSound.volume = 0.1
+    hoverSound.play();
+  }
+
+
+
   const renderMockTasks = () => (
     <>
       
         <div className="toDoWrapper">
-          <div className="toDoColor" style={{ background: getColor("Hard") }}>
+          <div className="toDoColor" style={{ background: getColor("Hard") }} onMouseEnter={hoverSoundPlay}>
             <div className="toDoText">
               <h1>Estudar para a prova de Cálculo!</h1>
             </div>
@@ -124,7 +157,7 @@ const Tasks = () => {
               </div>
             </div>
           </div>
-          <div className="toDoColor" style={{ background: getColor("Moderate") }}>
+          <div className="toDoColor" style={{ background: getColor("Moderate") }} onMouseEnter={hoverSoundPlay}>
             <div className="toDoText">
               <h1>Apprenez à faire des macarons et invitez des amis.</h1>
             </div>
@@ -139,7 +172,7 @@ const Tasks = () => {
               </div>
             </div>
           </div>
-          <div className="toDoColor" style={{ background: getColor("Easy") }}>
+          <div className="toDoColor" style={{ background: getColor("Easy") }} onMouseEnter={hoverSoundPlay}>
             <div className="toDoText">
               <h1>esen Sie den kleinen Prinzen und geben Sie online eine Rezension ab</h1>
             </div>
@@ -154,7 +187,7 @@ const Tasks = () => {
               </div>
             </div>
           </div>
-          <div className="toDoColor" style={{ background: getColor("Moderate") }}>
+          <div className="toDoColor" style={{ background: getColor("Moderate") }} onMouseEnter={hoverSoundPlay}>
             <div className="toDoText">
               <h1>友達と遊ぶためにギターの弾き方を学ぶ</h1>
             </div>
@@ -169,7 +202,7 @@ const Tasks = () => {
               </div>
             </div>
           </div>
-          <div className="toDoColor" style={{ background: getColor("Hard") }}>
+          <div className="toDoColor" style={{ background: getColor("Hard") }} onMouseEnter={hoverSoundPlay}>
             <div className="toDoText">
               <h1>Study FullStack development and create an application</h1>
             </div>
@@ -194,7 +227,7 @@ const Tasks = () => {
       <div className="toDoWrapper">
         {userId && toDos.length > 0 ? (
           toDos.map((toDo) => (
-            <div className="toDoColor" key={toDo._id} style={{ background: getColor(toDo.difficulty) }}>
+            <div className={`toDoColor ${toDo.difficulty === "Done" ? "toDoDone" : ""}`} key={toDo._id} style={{ background: getColor(toDo.difficulty) }} onMouseEnter={hoverSoundPlay}>
               {editingToDo === toDo._id ? (
                 <div className="saveToDo">
                   <input placeholder="Edit your ToDo" type="text" value={editContent} onChange={e => setEditContent(e.target.value)} />
@@ -210,7 +243,8 @@ const Tasks = () => {
               )}
               <div className="toDoBtn">
                 <button onClick={() => handleDelete(toDo._id)}><img src={trash} alt="delete" /></button>
-                <button onClick={() => handleEditClick(toDo._id, toDo.content, toDo.difficulty)}><img src={edit} alt="edit" /></button>
+                <button className={"specialButton"} onClick={() => handleDone(toDo._id, toDo.difficulty)}><img src={todoDone} alt="done" /></button>
+                <button onClick={() => handleEditClick(toDo._id, toDo.content, toDo.difficulty)}><span><img src={edit} alt="edit" /></span></button>
               </div>
             </div>
           ))

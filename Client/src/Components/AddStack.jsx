@@ -2,13 +2,14 @@ import React from 'react'
 import {useState} from 'react';
 import {toast} from 'react-toastify'
 import axios from "axios"
+import addSound from "../sounds/Click.wav"
 
 const AddStack = ({onTempAdd, onAdd, addCount}) => {
     
   const [content, setContent] = useState('');
   const [difficulty, setDifficulty] = useState('Unclear')
   const todosLength = localStorage.getItem('length')
-  const difs = ["Unclear", "Hard", "Moderate", "Easy"]
+  const difs = ["Default", "Hard", "Moderate", "Easy"]
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleAdd = () => {
@@ -51,8 +52,19 @@ const AddStack = ({onTempAdd, onAdd, addCount}) => {
 
    setContent('')
    setDifficulty('')
+   playSound();
+
 
   }
+
+  const Sound = new Audio(addSound);
+
+  const playSound = () => {
+    Sound.currentTime = 0;
+    Sound.volume = 0.5
+    Sound.play();
+  }
+
 
   return (
     <div className="crud">

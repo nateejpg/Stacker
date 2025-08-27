@@ -5,6 +5,7 @@ import SignUp from "./Components/SignUp";
 import { useEffect, useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import AddStack from "./Components/AddStack";
+import Habits from "./Components/Habits";
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
           <Route path={"/SignIn"} element = {<SignIn onLogin = {handleLogin}/>}/>
           <Route path={"/SignUp"} element = {<SignUp id={userId}/>}/>
           <Route path={"/AddStack"} element={<AddStack id={userId}/>}/>
+          <Route path={"./Habits"} element={<Habits/>}/>
         </Routes>
       </BrowserRouter>
       <ToastContainer/>

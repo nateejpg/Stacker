@@ -27,7 +27,20 @@ const SignUp = () => {
 
     e.preventDefault();
 
-    axios.post(`${API_URL}register`, {username: username, email: email, password: password})
+    if(email.length < 9){
+      toast.error("Enter a valid email!");
+      return;
+
+    }else if(password.length < 5){
+      toast.error("Enter a valid password!");
+      return;
+
+    }else if(username.length < 4){
+      toast.error("Enter a valid username!");
+      return;
+
+    }else{
+      axios.post(`${API_URL}register`, {username: username, email: email, password: password})
     .then(() => {
       toast.success('You have successfully created an account, you can now log in!')
       
@@ -35,8 +48,11 @@ const SignUp = () => {
       setEmail('');
       setPassword('');
 
+      navigate("/SignIn")
+
     })
     .catch(err => console.log(err))
+    }
 
   }
 
