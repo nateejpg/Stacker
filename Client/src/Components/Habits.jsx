@@ -77,7 +77,7 @@ const Habits = ({onColorChange, onTempLength, onAddHabit}) => {
           <input type="text" placeholder="Enter your habit:" 
           onChange={((e) => setTitle(e.target.value))} 
           value={title}
-          maxLength={60}
+          maxLength={25}
           ></input>
           <select value={difficulty} onChange={handleSelectDifficulty}>Select Difficulty
           <option value={"lightgray"}>Default</option>

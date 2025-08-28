@@ -1114,27 +1114,36 @@ input::placeholder {
 }
 
 .habit{
-  width: 90%;
+  width: 85%;
   font-size: 1.2rem;
   justify-content: center;
-  gap: 25px;
+  gap: 5px;
 }
 
 .habit:hover{
   width: 95%;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 
 .habit .title{
-  font-size: 1.3rem;
-  width: 70%;
+  font-size: 1rem;
+  width: 100%;
   font-weight: bold;
+  padding: 0.1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 
 .habit .counter p{
-  font-size: 0.68rem;
+  font-size: 0.57rem;
+}
+
+
+.habitList{
+  gap: 3px;
 }
 
 
@@ -1162,7 +1171,7 @@ input::placeholder {
 
 
 .habit .counter{
-  width: 30%;
+  max-width: 30%;
   display: flex;
   gap: 10px;
   align-items: center;
