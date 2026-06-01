@@ -1,13 +1,13 @@
-# 📌 Stacker
+# Stacker
 
 **Stacker** é um aplicativo full-stack de gerenciamento de tarefas desenvolvido com **React**, **Node.js** e **MongoDB**, ideal para organizar atividades diárias com uma interface simples, responsiva e produtiva.
 
 ---
 
-## 🚀 Demonstração ao vivo
-🔗 [Acesse a versão online](https://stacker-client.vercel.app)
+## Demonstração ao vivo
+[Acesse a versão online](https://stacker-client.vercel.app)
 
-# ⚙️ Como executar localmente
+#  Como executar localmente
 
 ### 1. Clone o repositório
 bash
@@ -20,7 +20,7 @@ bash
 `npm install`
 `npm start`
 
-## 🔑 Variáveis de Ambiente
+##  Variáveis de Ambiente
 
 No diretório server/, crie um arquivo .env com as seguintes variáveis:
 
@@ -29,15 +29,15 @@ PORT=5000
 
 Adapte conforme a configuração do seu projeto.
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
 - ✅ **CRUD de tarefas**: crie, visualize, edite e exclua tarefas.
 - ✅ **Categorias ou prioridades**: atribua níveis de dificuldade ou categorias às tarefas.
 - ✅ **Contador/Timer integrado**: acompanhe o tempo dedicado a cada atividade.
 - ✅ **Interface responsiva**: adaptável a diferentes dispositivos e tamanhos de tela.
-- 🔜 Novas funcionalidades poderão ser adicionadas futuramente!
+-  Novas funcionalidades poderão ser adicionadas futuramente!
 
-## 📁 Estrutura do Projeto
+##  Estrutura do Projeto
 
 Stacker/
 
@@ -47,7 +47,7 @@ Stacker/
 
 -- README.md 
 
-## 🤝 Contribuição
+## Contribuição
 
 Contribuições são bem-vindas!  
 
@@ -66,6 +66,6 @@ Faça o push:
 Abra um Pull Request
 
 
-# 📜 Licença
+#  Licença
 
 Este projeto está sob a licença **MIT**.
